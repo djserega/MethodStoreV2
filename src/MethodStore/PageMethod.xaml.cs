@@ -35,5 +35,15 @@ namespace MethodStore
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
         {
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is Guid id)
+            {
+                //_method.FindById(id);
+            }
+        }
     }
 }

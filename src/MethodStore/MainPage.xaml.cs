@@ -60,5 +60,21 @@ namespace MethodStore
         {
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            object idSelectedMethod = null;
+            if (DataGridMethods.SelectedItem is Models.Method method)
+                idSelectedMethod = method.ID;
+
+            Frame.Navigate(typeof(PageMethod), idSelectedMethod);
+
+            SetVisiblilityBackButton();
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

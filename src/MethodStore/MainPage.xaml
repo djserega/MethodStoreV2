@@ -25,9 +25,9 @@
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
             <Button x:Name="ButtonAdd" Content="Добавить" Click="ButtonAdd_Click"/>
             <Border Width="5"/>
-            <Button x:Name="ButtonEdit" Content="Изменить"/>
+            <Button x:Name="ButtonEdit" Content="Изменить" Click="ButtonEdit_Click"/>
             <Border Width="5"/>
-            <Button x:Name="ButtonDelete" Content="Удалить"/>
+            <Button x:Name="ButtonDelete" Content="Удалить" Click="ButtonDelete_Click"/>
             <Border Width="10"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Поиск:" VerticalAlignment="Center"/>
