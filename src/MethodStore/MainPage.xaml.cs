@@ -31,11 +31,6 @@ namespace MethodStore
             InitializeComponent();
 
             DataContext = this;
-
-            _listMethods.Add(new Models.Method() { Group = "<без группы>", Type = "Общий модуль" });
-            _listMethods.Add(new Models.Method() { Group = "<без группы>", Type = "Справочник" });
-
-            //DataGridMethods.ite
         }
     }
 }
