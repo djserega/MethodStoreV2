@@ -30,6 +30,8 @@ namespace MethodStore
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            new EF.MethodStoreContext();
         }
 
         /// <summary>

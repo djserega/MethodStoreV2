@@ -28,9 +28,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-            <Button Content="Записать"/>
+            <Button x:Name="ButtonSave" Content="Записать" Click="ButtonSave_Click"/>
         </StackPanel>
-        
+
+
         <Grid Grid.Row="3" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -40,11 +41,11 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Vertical">
-                <TextBox Header="Вызов метода"/>
-                <TextBox Header="Группа"/>
-                <TextBox Header="Тип"/>
-                <TextBox Header="Объект"/>
-                <TextBox Header="Метод"/>
+                <TextBox Header="Вызов метода" Text="{x:Bind Method.MethodInvokationString, Mode=TwoWay}"/>
+                <TextBox Header="Группа" Text="{x:Bind Method.Group, Mode=TwoWay}"/>
+                <TextBox Header="Тип" Text="{x:Bind Method.Type, Mode=TwoWay}"/>
+                <TextBox Header="Объект" Text="{x:Bind Method.ObjectName, Mode=TwoWay}"/>
+                <TextBox Header="Метод" Text="{x:Bind Method.MethodName, Mode=TwoWay}"/>
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Vertical">
@@ -87,6 +88,7 @@
 
             </Grid>
         </Grid>
-        
+
     </Grid>
+
 </Page>

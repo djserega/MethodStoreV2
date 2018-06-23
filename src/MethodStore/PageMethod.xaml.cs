@@ -22,14 +22,11 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageMethod : Page
     {
-        private Models.Method _method = new Models.Method();
-        public Models.Method Method { get => _method; }
+        public Models.Method Method { get; set; }
 
         public PageMethod()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
@@ -40,9 +37,27 @@ namespace MethodStore
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is Guid id)
+            if (e.Parameter is int id)
             {
-                //_method.FindById(id);
+                using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                {
+                    Method = context.Find(typeof(Models.Method), id) as Models.Method;
+                }
+            }
+            if (Method == null)
+                Method = new Models.Method();
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+            {
+                if (Method.ID == 0)
+                    context.Add(Method);
+                else
+                    context.Update(Method);
+
+                context.SaveChanges();
             }
         }
     }

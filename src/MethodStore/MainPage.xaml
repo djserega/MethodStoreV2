@@ -8,6 +8,7 @@
     xmlns:uwp="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     x:Name="PageMainPage" Width="1200" Height="600"
+    Loaded="PageMainPage_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -51,7 +52,7 @@
             
         </Grid>
         
-        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2"  ItemsSource="{Binding ElementName=PageMainPage, Path=ListMethods}" AutoGenerateColumns="False">
+        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2"  ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False">
             <uwp:DataGrid.Columns>
                 <uwp:DataGridTextColumn Header="Группа" Binding="{Binding Group}" />
                 <uwp:DataGridTextColumn Header="Тип" Binding="{Binding Type}" />

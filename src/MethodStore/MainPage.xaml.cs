@@ -31,11 +31,24 @@ namespace MethodStore
         {
             InitializeComponent();
 
-            DataContext = this;
-
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+        }
 
+        private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            FillListMethods();
+        }
 
+        private void FillListMethods()
+        {
+            using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+            {
+                _listMethods.Clear();
+                foreach (Models.Method item in context.Methods.ToList())
+                {
+                    _listMethods.Add(item);
+                }
+            }
         }
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
@@ -44,6 +57,7 @@ namespace MethodStore
             {
                 e.Handled = true;
                 Frame.GoBack();
+                FillListMethods();
             }
 
             SetVisiblilityBackButton();
@@ -74,7 +88,17 @@ namespace MethodStore
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (DataGridMethods.SelectedItem is Models.Method method)
+            {
+                using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                {
+                    context.Remove(method);
+                    context.SaveChanges();
+                }
+            }
+            FillListMethods();
 
+            SetVisiblilityBackButton();
         }
     }
 }
