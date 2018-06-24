@@ -54,7 +54,9 @@ namespace MethodStore
             using (EF.MethodStoreContext context = new EF.MethodStoreContext())
             {
                 _listMethods.Clear();
-                foreach (Models.Method item in context.Methods.ToList())
+                List<Models.Method> methods = context.Methods.ToList();
+                methods.Sort((a, b) => b.ID.CompareTo(a.ID));
+                foreach (Models.Method item in methods)
                 {
                     _listMethods.Add(item);
                 }
