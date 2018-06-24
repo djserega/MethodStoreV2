@@ -23,8 +23,6 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageMethod : Page
     {
-        private FrameGoBackEvents _frameGoBackEvents;
-
         public Models.Method Method { get; set; }
 
         public PageMethod()
@@ -43,8 +41,6 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                _frameGoBackEvents = parametersNav.frameGoBackEvents;
-
                 if (parametersNav.parameters is int id)
                 {
                     using (EF.MethodStoreContext context = new EF.MethodStoreContext())
@@ -80,7 +76,7 @@ namespace MethodStore
         {
             SaveObject();
 
-            _frameGoBackEvents.EvokeFrameGoBack();
+            Frame.Navigate(typeof(MainPage), new ParametersNavigating() { parameters = Method });
         }
     }
 }

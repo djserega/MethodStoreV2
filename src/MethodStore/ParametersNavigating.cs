@@ -8,7 +8,6 @@ namespace MethodStore
 {
     internal class ParametersNavigating
     {
-        internal FrameGoBackEvents frameGoBackEvents;
         internal object parameters;
     }
 }

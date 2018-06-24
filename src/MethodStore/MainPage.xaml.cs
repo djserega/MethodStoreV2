@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -25,7 +26,7 @@ namespace MethodStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private FrameGoBackEvents _frameGoBackEvent;
+        public Models.Method SelectedItemMethod { get; set; }
 
         private ObservableCollection<Models.Method> _listMethods = new ObservableCollection<Models.Method>();
         public ObservableCollection<Models.Method> ListMethods { get => _listMethods; }
@@ -34,21 +35,18 @@ namespace MethodStore
         {
             InitializeComponent();
 
-            _frameGoBackEvent = new FrameGoBackEvents();
-            _frameGoBackEvent.FrameGoBackEvent += _frameGoBackEvent_FrameGoBackEvent;
-
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
-        }
-
-        private void _frameGoBackEvent_FrameGoBackEvent()
-        {
-            TryGoBack();
         }
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
         {
             ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
             FillListMethods();
+
+            if (SelectedItemMethod != null)
+            {
+                DataGridMethods.SelectedItem = _listMethods.Single(f => f.ID == SelectedItemMethod.ID);
+            }
         }
 
         private void FillListMethods()
@@ -72,15 +70,21 @@ namespace MethodStore
             SetVisiblilityBackButton();
         }
 
-        private void TryGoBack(BackRequestedEventArgs e = null)
+        private bool TryGoBack(BackRequestedEventArgs e = null)
         {
+            bool result = false;
+            
             if (Frame.CanGoBack)
             {
                 if (e != null)
                     e.Handled = true;
 
                 Frame.GoBack();
+
+                result = true;
             }
+
+            return result;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
@@ -128,12 +132,23 @@ namespace MethodStore
         {
             ParametersNavigating parameters = new ParametersNavigating()
             {
-                frameGoBackEvents = _frameGoBackEvent,
                 parameters = param
             };
 
             Frame.Navigate(typePage, parameters);
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (e.Parameter is ParametersNavigating parametersNav)
+            {
+                if (parametersNav.parameters is Models.Method method)
+                {
+                    SelectedItemMethod = method;
+                }
+            }
+        }
     }
 }
