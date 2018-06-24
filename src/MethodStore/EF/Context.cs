@@ -12,12 +12,32 @@ namespace MethodStore.EF
         internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
             List<Models.Method> methods;
+
             using (MethodStoreContext context = new MethodStoreContext())
             {
                 DbSet<Models.Method> contextMethods = context.Methods;
 
-                methods = contextMethods.ToList();
-                methods.Sort((a, b) => b.ID.CompareTo(a.ID));
+                IQueryable<Models.Method> contextMethodsSearch = null;
+
+                if (!string.IsNullOrWhiteSpace(parametersSearch.Text))
+                {
+                    string searchText = parametersSearch.Text;
+
+                    if (parametersSearch.SearchInGroup)
+                        contextMethodsSearch = contextMethods.Where(f => f.Group.Contains(searchText));
+                    if (parametersSearch.SearchInType)
+                        contextMethodsSearch = contextMethods.Where(f => f.Type.Contains(searchText));
+                    if (parametersSearch.SearchInObjectName)
+                        contextMethodsSearch = contextMethods.Where(f => f.ObjectName.Contains(searchText));
+                    if (parametersSearch.SearchInMethodName)
+                        contextMethodsSearch = contextMethods.Where(f => f.MethodName.Contains(searchText));
+                }
+
+                if (contextMethodsSearch == null)
+                    contextMethodsSearch = contextMethods.Where(f => true);
+
+                contextMethodsSearch?.OrderByDescending(f => f.ID);
+                methods = contextMethodsSearch?.ToList();
             }
             return methods;
         }

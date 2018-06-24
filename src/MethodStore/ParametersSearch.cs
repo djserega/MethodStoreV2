@@ -11,7 +11,8 @@ namespace MethodStore
 {
     public class ParametersSearch : INotifyPropertyChanged, IDisposable
     {
-        ApplicationDataContainer localSettings;
+        private ParameterSearchEvents _parameterSearchEvents;
+        private ApplicationDataContainer localSettings;
 
         private string _text;
         private bool _searchInGroup;
@@ -19,8 +20,9 @@ namespace MethodStore
         private bool _searchInObjectName;
         private bool _searchInMethodName;
 
-        public ParametersSearch()
+        public ParametersSearch(ParameterSearchEvents parameterSearchEvents)
         {
+            _parameterSearchEvents = parameterSearchEvents;
             LoadLocalSettings();
         }
 
@@ -34,6 +36,7 @@ namespace MethodStore
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _parameterSearchEvents.EvokeParameterSearchEvent();
         }
 
         private void LoadLocalSettings()
@@ -75,7 +78,7 @@ namespace MethodStore
             }
         }
 
-        public void Dispose()
+        public void SaveSettings()
         {
             localSettings = ApplicationData.Current.LocalSettings;
             localSettings.Values["Text"] = _text;
@@ -83,6 +86,11 @@ namespace MethodStore
             localSettings.Values["SearchInType"] = _searchInType;
             localSettings.Values["SearchInObjectName"] = _searchInObjectName;
             localSettings.Values["SearchInMethodName"] = _searchInMethodName;
+        }
+
+        public void Dispose()
+        {
+            SaveSettings();
         }
     }
 }

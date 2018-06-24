@@ -51,7 +51,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="Поле поиска" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="2" PlaceholderText="Введите текст для поиска" VerticalAlignment="Center" Text="{x:Bind ParametersSearch.Text}"/>
+            <TextBox Grid.Column="2" PlaceholderText="Введите текст для поиска" VerticalAlignment="Center" Text="{x:Bind ParametersSearch.Text, Mode=TwoWay}"/>
 
         </Grid>
 

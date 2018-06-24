@@ -28,12 +28,12 @@ namespace MethodStore
     {
         #region Fields
         private Models.Method _selectedItemMethod;
-        private ObservableCollection<Models.Method> _listMethods = new ObservableCollection<Models.Method>();
+        private ParameterSearchEvents _parameterSearchEvents = new ParameterSearchEvents();
         #endregion
 
         #region Properties
         public ParametersSearch ParametersSearch { get; set; }
-        public ObservableCollection<Models.Method> ListMethods { get => _listMethods; }
+        public ObservableCollection<Models.Method> ListMethods { get; } = new ObservableCollection<Models.Method>();
         #endregion
 
         #region Page events
@@ -41,11 +41,13 @@ namespace MethodStore
         public MainPage()
         {
             if (ParametersSearch == null)
-                ParametersSearch = new ParametersSearch();
+                ParametersSearch = new ParametersSearch(_parameterSearchEvents);
 
             InitializeComponent();
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) => 
+            _parameterSearchEvents.ChangedItemSearch += _parameterSearchEvents_ChangedItemSearch;
+
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) =>
             {
                 TryGoBack(e);
 
@@ -62,7 +64,7 @@ namespace MethodStore
 
             if (_selectedItemMethod != null)
             {
-                DataGridMethods.SelectedItem = _listMethods.Single(f => f.ID == _selectedItemMethod.ID);
+                DataGridMethods.SelectedItem = ListMethods.Single(f => f.ID == _selectedItemMethod.ID);
             }
         }
 
@@ -129,7 +131,7 @@ namespace MethodStore
                 parameters = param
             };
 
-            ParametersSearch.Dispose();
+            ParametersSearch?.SaveSettings();
 
             Frame.Navigate(typePage, parameters);
         }
@@ -153,20 +155,24 @@ namespace MethodStore
 
         private void SetVisiblilityBackButton()
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack
+                ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         #endregion
 
         private void FillListMethods()
         {
-            _listMethods.Clear();
-            foreach (Models.Method item in new EF.Context().GetListMethods(ParametersSearch))
-            {
-                _listMethods.Add(item);
-            }
-
+            ListMethods.Clear();
+            List<Models.Method> methods = new EF.Context().GetListMethods(ParametersSearch);
+            if (methods != null)
+                foreach (Models.Method item in methods)
+                    ListMethods.Add(item);
         }
 
+        private void _parameterSearchEvents_ChangedItemSearch()
+        {
+            FillListMethods();
+        }
     }
 }
