@@ -26,7 +26,8 @@ namespace MethodStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public Models.Method SelectedItemMethod { get; set; }
+        private Models.Method _selectedItemMethod;
+        public ParametersSearch ParametersSearch { get; set; }
 
         private ObservableCollection<Models.Method> _listMethods = new ObservableCollection<Models.Method>();
         public ObservableCollection<Models.Method> ListMethods { get => _listMethods; }
@@ -40,12 +41,15 @@ namespace MethodStore
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            if (ParametersSearch == null)
+                ParametersSearch = new ParametersSearch();
+
             ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
             FillListMethods();
 
-            if (SelectedItemMethod != null)
+            if (_selectedItemMethod != null)
             {
-                DataGridMethods.SelectedItem = _listMethods.Single(f => f.ID == SelectedItemMethod.ID);
+                DataGridMethods.SelectedItem = _listMethods.Single(f => f.ID == _selectedItemMethod.ID);
             }
         }
 
@@ -137,6 +141,8 @@ namespace MethodStore
                 parameters = param
             };
 
+            ParametersSearch.Dispose();
+
             Frame.Navigate(typePage, parameters);
         }
 
@@ -148,9 +154,14 @@ namespace MethodStore
             {
                 if (parametersNav.parameters is Models.Method method)
                 {
-                    SelectedItemMethod = method;
+                    _selectedItemMethod = method;
                 }
             }
+        }
+
+        private void PageMainPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ParametersSearch?.Dispose();
         }
     }
 }

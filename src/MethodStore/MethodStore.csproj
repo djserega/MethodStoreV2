@@ -105,6 +105,7 @@
       <DependentUpon>PageMethod.xaml</DependentUpon>
     </Compile>
     <Compile Include="ParametersNavigating.cs" />
+    <Compile Include="ParametersSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

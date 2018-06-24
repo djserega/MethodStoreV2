@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     x:Name="PageMainPage" Width="1200" Height="600"
     Loaded="PageMainPage_Loaded"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Unloaded="PageMainPage_Unloaded">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -33,13 +33,13 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Поиск:" VerticalAlignment="Center"/>
                 <Border Width="3"/>
-                <ToggleButton  Content="Группа"/>
+                <ToggleButton Content="Группа" IsChecked="{x:Bind ParametersSearch.SearchInGroup, Mode=TwoWay}"/>
                 <Border Width="1"/>
-                <ToggleButton  Content="Тип"/>
+                <ToggleButton Content="Тип" IsChecked="{x:Bind ParametersSearch.SearchInType, Mode=TwoWay}"/>
                 <Border Width="1"/>
-                <ToggleButton  Content="Имя объекта"/>
+                <ToggleButton Content="Имя объекта" IsChecked="{x:Bind ParametersSearch.SearchInObjectName, Mode=TwoWay}"/>
                 <Border Width="1"/>
-                <ToggleButton  Content="Метод"/>
+                <ToggleButton Content="Метод" IsChecked="{x:Bind ParametersSearch.SearchInMethodName, Mode=TwoWay}"/>
             </StackPanel>
         </StackPanel>
 
@@ -49,10 +49,10 @@
                 <ColumnDefinition Width="5"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <TextBlock Grid.Column="0" Text="Поле поиска" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="2" PlaceholderText="Введите текст для поиска" VerticalAlignment="Center"/>
-            
+            <TextBox Grid.Column="2" PlaceholderText="Введите текст для поиска" VerticalAlignment="Center" Text="{x:Bind ParametersSearch.Text}"/>
+
         </Grid>
 
         <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2" ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False">
