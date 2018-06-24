@@ -7,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -36,6 +37,7 @@ namespace MethodStore
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
             FillListMethods();
         }
 

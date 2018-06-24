@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -31,6 +32,7 @@ namespace MethodStore
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
