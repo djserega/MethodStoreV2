@@ -88,19 +88,23 @@ namespace MethodStore
             SetVisiblilityBackButton();
         }
 
-        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        private async void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
             if (DataGridMethods.SelectedItem is Models.Method method)
             {
-                using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                if (await Messages.Question($"Удалить метод {method.MethodInvokationString}?") == ContentDialogResult.Primary)
                 {
-                    context.Remove(method);
-                    context.SaveChanges();
+                    using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                    {
+                        context.Remove(method);
+                        context.SaveChanges();
+                    }
                 }
             }
             FillListMethods();
 
             SetVisiblilityBackButton();
         }
+   
     }
 }
