@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Events.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -104,6 +105,7 @@
     <Compile Include="PageMethod.xaml.cs">
       <DependentUpon>PageMethod.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ParametersNavigating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

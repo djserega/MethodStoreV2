@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-            <Button x:Name="ButtonAdd" Content="Добавить" Click="ButtonAdd_Click"/>
+            <Button x:Name="ButtonAdd" Content="Добавить" Click="ButtonAdd_Click" Style="{StaticResource AccentButtonStyle}" />
             <Border Width="5"/>
             <Button x:Name="ButtonEdit" Content="Изменить" Click="ButtonEdit_Click"/>
             <Border Width="5"/>
@@ -54,8 +54,8 @@
             <TextBox Grid.Column="2" PlaceholderText="Введите текст для поиска" VerticalAlignment="Center"/>
             
         </Grid>
-        
-        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2"  ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False">
+
+        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2" ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False">
             <uwp:DataGrid.Columns>
                 <uwp:DataGridTextColumn Header="Группа" Binding="{Binding Group}" />
                 <uwp:DataGridTextColumn Header="Тип" Binding="{Binding Type}" />

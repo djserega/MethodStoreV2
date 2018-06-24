@@ -23,6 +23,8 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageMethod : Page
     {
+        private FrameGoBackEvents _frameGoBackEvents;
+
         public Models.Method Method { get; set; }
 
         public PageMethod()
@@ -39,18 +41,29 @@ namespace MethodStore
         {
             base.OnNavigatedTo(e);
 
-            if (e.Parameter is int id)
+            if (e.Parameter is ParametersNavigating parametersNav)
             {
-                using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                _frameGoBackEvents = parametersNav.frameGoBackEvents;
+
+                if (parametersNav.parameters is int id)
                 {
-                    Method = context.Find(typeof(Models.Method), id) as Models.Method;
+                    using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+                    {
+                        Method = context.Find(typeof(Models.Method), id) as Models.Method;
+                    }
                 }
             }
+
             if (Method == null)
                 Method = new Models.Method();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveObject();
+        }
+
+        private void SaveObject()
         {
             using (EF.MethodStoreContext context = new EF.MethodStoreContext())
             {
@@ -61,6 +74,13 @@ namespace MethodStore
 
                 context.SaveChanges();
             }
+        }
+
+        private void ButtonSaveAndClose_Click(object sender, RoutedEventArgs e)
+        {
+            SaveObject();
+
+            _frameGoBackEvents.EvokeFrameGoBack();
         }
     }
 }

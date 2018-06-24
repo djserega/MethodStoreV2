@@ -25,6 +25,8 @@ namespace MethodStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private FrameGoBackEvents _frameGoBackEvent;
+
         private ObservableCollection<Models.Method> _listMethods = new ObservableCollection<Models.Method>();
         public ObservableCollection<Models.Method> ListMethods { get => _listMethods; }
 
@@ -32,7 +34,15 @@ namespace MethodStore
         {
             InitializeComponent();
 
+            _frameGoBackEvent = new FrameGoBackEvents();
+            _frameGoBackEvent.FrameGoBackEvent += _frameGoBackEvent_FrameGoBackEvent;
+
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+        }
+
+        private void _frameGoBackEvent_FrameGoBackEvent()
+        {
+            TryGoBack();
         }
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
@@ -55,19 +65,27 @@ namespace MethodStore
 
         private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (Frame.CanGoBack)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-                FillListMethods();
-            }
+            TryGoBack(e);
+
+            FillListMethods();
 
             SetVisiblilityBackButton();
         }
 
+        private void TryGoBack(BackRequestedEventArgs e = null)
+        {
+            if (Frame.CanGoBack)
+            {
+                if (e != null)
+                    e.Handled = true;
+
+                Frame.GoBack();
+            }
+        }
+
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PageMethod));
+            Navigating(typeof(PageMethod));
 
             SetVisiblilityBackButton();
         }
@@ -83,7 +101,7 @@ namespace MethodStore
             if (DataGridMethods.SelectedItem is Models.Method method)
                 idSelectedMethod = method.ID;
 
-            Frame.Navigate(typeof(PageMethod), idSelectedMethod);
+            Navigating(typeof(PageMethod), idSelectedMethod);
 
             SetVisiblilityBackButton();
         }
@@ -106,5 +124,16 @@ namespace MethodStore
             SetVisiblilityBackButton();
         }
    
+        private void Navigating(Type typePage, object param = null)
+        {
+            ParametersNavigating parameters = new ParametersNavigating()
+            {
+                frameGoBackEvents = _frameGoBackEvent,
+                parameters = param
+            };
+
+            Frame.Navigate(typePage, parameters);
+        }
+
     }
 }
