@@ -34,6 +34,9 @@ namespace MethodStore
 
         public MainPage()
         {
+            if (ParametersSearch == null)
+                ParametersSearch = new ParametersSearch();
+
             InitializeComponent();
 
             SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
@@ -41,9 +44,6 @@ namespace MethodStore
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ParametersSearch == null)
-                ParametersSearch = new ParametersSearch();
-
             ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
             FillListMethods();
 
