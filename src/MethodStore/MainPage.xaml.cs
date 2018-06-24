@@ -26,11 +26,17 @@ namespace MethodStore
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        #region Fields
         private Models.Method _selectedItemMethod;
-        public ParametersSearch ParametersSearch { get; set; }
-
         private ObservableCollection<Models.Method> _listMethods = new ObservableCollection<Models.Method>();
+        #endregion
+
+        #region Properties
+        public ParametersSearch ParametersSearch { get; set; }
         public ObservableCollection<Models.Method> ListMethods { get => _listMethods; }
+        #endregion
+
+        #region Page events
 
         public MainPage()
         {
@@ -39,7 +45,14 @@ namespace MethodStore
 
             InitializeComponent();
 
-            SystemNavigationManager.GetForCurrentView().BackRequested += MainPage_BackRequested;
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) => 
+            {
+                TryGoBack(e);
+
+                FillListMethods();
+
+                SetVisiblilityBackButton();
+            };
         }
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
@@ -53,56 +66,20 @@ namespace MethodStore
             }
         }
 
-        private void FillListMethods()
+        private void PageMainPage_Unloaded(object sender, RoutedEventArgs e)
         {
-            using (EF.MethodStoreContext context = new EF.MethodStoreContext())
-            {
-                _listMethods.Clear();
-                List<Models.Method> methods = context.Methods.ToList();
-                methods.Sort((a, b) => b.ID.CompareTo(a.ID));
-                foreach (Models.Method item in methods)
-                {
-                    _listMethods.Add(item);
-                }
-            }
+            ParametersSearch?.Dispose();
         }
 
-        private void MainPage_BackRequested(object sender, BackRequestedEventArgs e)
-        {
-            TryGoBack(e);
+        #endregion
 
-            FillListMethods();
-
-            SetVisiblilityBackButton();
-        }
-
-        private bool TryGoBack(BackRequestedEventArgs e = null)
-        {
-            bool result = false;
-            
-            if (Frame.CanGoBack)
-            {
-                if (e != null)
-                    e.Handled = true;
-
-                Frame.GoBack();
-
-                result = true;
-            }
-
-            return result;
-        }
+        #region Button
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             Navigating(typeof(PageMethod));
 
             SetVisiblilityBackButton();
-        }
-
-        private void SetVisiblilityBackButton()
-        {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
@@ -133,18 +110,10 @@ namespace MethodStore
 
             SetVisiblilityBackButton();
         }
-   
-        private void Navigating(Type typePage, object param = null)
-        {
-            ParametersNavigating parameters = new ParametersNavigating()
-            {
-                parameters = param
-            };
 
-            ParametersSearch.Dispose();
+        #endregion
 
-            Frame.Navigate(typePage, parameters);
-        }
+        #region Navigating
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -159,9 +128,55 @@ namespace MethodStore
             }
         }
 
-        private void PageMainPage_Unloaded(object sender, RoutedEventArgs e)
+        private void Navigating(Type typePage, object param = null)
         {
-            ParametersSearch?.Dispose();
+            ParametersNavigating parameters = new ParametersNavigating()
+            {
+                parameters = param
+            };
+
+            ParametersSearch.Dispose();
+
+            Frame.Navigate(typePage, parameters);
         }
+
+        private bool TryGoBack(BackRequestedEventArgs e = null)
+        {
+            bool result = false;
+
+            if (Frame.CanGoBack)
+            {
+                if (e != null)
+                    e.Handled = true;
+
+                Frame.GoBack();
+
+                result = true;
+            }
+
+            return result;
+        }
+
+        private void SetVisiblilityBackButton()
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        #endregion
+
+        private void FillListMethods()
+        {
+            using (EF.MethodStoreContext context = new EF.MethodStoreContext())
+            {
+                _listMethods.Clear();
+                List<Models.Method> methods = context.Methods.ToList();
+                methods.Sort((a, b) => b.ID.CompareTo(a.ID));
+                foreach (Models.Method item in methods)
+                {
+                    _listMethods.Add(item);
+                }
+            }
+        }
+
     }
 }
