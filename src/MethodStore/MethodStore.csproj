@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EF\Context.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="MainPage.xaml.cs">

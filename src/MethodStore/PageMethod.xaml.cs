@@ -43,10 +43,7 @@ namespace MethodStore
             {
                 if (parametersNav.parameters is int id)
                 {
-                    using (EF.MethodStoreContext context = new EF.MethodStoreContext())
-                    {
-                        Method = context.Find(typeof(Models.Method), id) as Models.Method;
-                    }
+                    Method = new EF.Context().FindByID(id);
                 }
             }
 
@@ -61,15 +58,7 @@ namespace MethodStore
 
         private void SaveObject()
         {
-            using (EF.MethodStoreContext context = new EF.MethodStoreContext())
-            {
-                if (Method.ID == 0)
-                    context.Add(Method);
-                else
-                    context.Update(Method);
-
-                context.SaveChanges();
-            }
+            new EF.Context().UpdateMethods(Method);
         }
 
         private void ButtonSaveAndClose_Click(object sender, RoutedEventArgs e)
