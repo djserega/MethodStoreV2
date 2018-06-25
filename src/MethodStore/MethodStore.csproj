@@ -99,11 +99,11 @@
     <Compile Include="Events.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Method.cs" />
-    <Compile Include="PageMethod.xaml.cs">
+    <Compile Include="Pages\PageMethod.xaml.cs">
       <DependentUpon>PageMethod.xaml</DependentUpon>
     </Compile>
     <Compile Include="ParametersNavigating.cs" />
@@ -131,11 +131,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageMethod.xaml">
+    <Page Include="Pages\PageMethod.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
