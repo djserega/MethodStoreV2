@@ -104,6 +104,7 @@
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Navigating.cs" />
     <Compile Include="Pages\PageGroup.xaml.cs">
       <DependentUpon>PageGroup.xaml</DependentUpon>
     </Compile>
