@@ -113,6 +113,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Method.cs" />
+    <Compile Include="Pages\PageList.xaml.cs">
+      <DependentUpon>PageList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageMethod.xaml.cs">
       <DependentUpon>PageMethod.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
     <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\PageList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\PageMethod.xaml">
       <SubType>Designer</SubType>
