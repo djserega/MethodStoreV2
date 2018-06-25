@@ -8,6 +8,7 @@ namespace MethodStore.EF
 
         public DbSet<Models.Method> Methods { get; set; }
         public DbSet<Models.Group> Groups { get; set; }
+        public DbSet<Models.Types> Types { get; set; }
 
         public MethodStoreContext()
         {
