@@ -5,7 +5,7 @@
     xmlns:local="using:MethodStore.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Width="400" Height="120"
+    mc:Ignorable="d" Width="400" Height="120" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -15,7 +15,7 @@
                 <Border Width="5"/>
                 <Button x:Name="ButtonSave" Style="{ThemeResource AccentButtonStyle}" Content="Записать" Click="ButtonSave_Click"/>
             </StackPanel>
-            <TextBox Header="Имя группы" Text="{x:Bind Group.Name}"/>
+            <TextBox x:Name="TextBoxName" Header="Имя группы" Text="{x:Bind Group.Name, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </Page>

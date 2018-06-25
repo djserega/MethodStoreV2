@@ -62,7 +62,7 @@ namespace MethodStore
 
             if (_selectedItemMethod != null)
             {
-                DataGridMethods.SelectedItem = ListMethods.Single(f => f.ID == _selectedItemMethod.ID);
+                DataGridMethods.SelectedItem = ListMethods.SingleOrDefault(f => f.ID == _selectedItemMethod.ID);
             }
         }
 
@@ -112,7 +112,7 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                if (parametersNav.parameters is Models.Method method)
+                if (parametersNav[0] is Models.Method method)
                 {
                     _selectedItemMethod = method;
                 }
@@ -129,14 +129,12 @@ namespace MethodStore
         {
             bool result = false;
 
-            Frame frame = Window.Current.Content as Frame;
-
-            if (frame.CanGoBack)
+            if (Frame.CanGoBack)
             {
                 if (e != null)
                     e.Handled = true;
 
-                frame.GoBack();
+                Frame.GoBack();
 
                 result = true;
             }

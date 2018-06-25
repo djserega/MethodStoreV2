@@ -23,11 +23,11 @@ namespace MethodStore
     public sealed partial class PageGroup : Page
     {
         public Models.Group Group { get; set; }
+        private Models.Method _parentMethods;
 
         public PageGroup()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -36,9 +36,18 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                if (parametersNav.parameters is int id)
+                if (parametersNav.CountParameters > 0)
                 {
-                    Group = new EF.Context<Models.Group>().FindByID(id);
+                    object firstParam = parametersNav.Parameters[0];
+
+                    if (firstParam is int id)
+                    {
+                        Group = new EF.Context<Models.Group>().FindByID(id);
+                    }
+                    else if (firstParam is Models.Method method)
+                    {
+                        _parentMethods = method;
+                    }
                 }
             }
 
@@ -48,18 +57,24 @@ namespace MethodStore
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            TryBack();
+            TryBack(_parentMethods);
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             new EF.Context<Models.Group>().UpdateMethods(Group);
-            TryBack();
+             
+            TryBack(_parentMethods, Group);
         }
 
-        private void TryBack()
+        private void TryBack(params object[] param)
         {
-            Navigating.Navigate(typeof(PageMethod));
+            Navigating.Navigate(typeof(PageMethod), param);
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxName.Focus(FocusState.Programmatic);
         }
     }
 }

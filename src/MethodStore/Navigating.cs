@@ -10,11 +10,11 @@ namespace MethodStore
 {
     internal static class Navigating
     {
-        internal static void Navigate(Type typePage, object param = null)
+        internal static void Navigate(Type typePage, params object[] param)
         {
             ParametersNavigating parameters = new ParametersNavigating()
             {
-                parameters = param
+                Parameters = param
             };
 
             Frame frame = Window.Current.Content as Frame;

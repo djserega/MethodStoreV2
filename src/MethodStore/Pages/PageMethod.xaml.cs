@@ -28,7 +28,6 @@ namespace MethodStore
         public PageMethod()
         {
             InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
@@ -42,9 +41,17 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                if (parametersNav.parameters is int id)
+                if (parametersNav[0] is int id)
                 {
-                    Method = new EF.Context<Models.Method>().FindByID(id);
+                    Method = new EF.Context<Models.Method>().FindByID(id) ?? new Models.Method();
+                }
+                else if (parametersNav[0] is Models.Method method)
+                {
+                    Method = new EF.Context<Models.Method>().FindByID(method.ID) ?? new Models.Method();
+                    if (parametersNav[1] is Models.Group newGroup)
+                    {
+                        Method.Group = newGroup.Name;
+                    }
                 }
             }
 
@@ -71,12 +78,18 @@ namespace MethodStore
 
         private void TryBack()
         {
-            Navigating.Navigate(typeof(MainPage), new ParametersNavigating() { parameters = Method });
+            Navigating.Navigate(typeof(MainPage), Method);
         }
 
         private void TextBoxGroup_ClickNew()
         {
-            Navigating.Navigate(typeof(PageGroup));
+            if (Method.ID == 0)
+            {
+                Messages.Show("Сначала нужно записать метод.");
+                return;
+            }
+
+            Navigating.Navigate(typeof(PageGroup), Method);
         }
 
         private void TextBoxType_ClickNew()
