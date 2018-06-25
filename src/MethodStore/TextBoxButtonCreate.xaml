@@ -16,7 +16,7 @@
             <ColumnDefinition Width="53"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text}"/>
+        <TextBox Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text, Mode=TwoWay}"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
