@@ -21,5 +21,10 @@ namespace MethodStore.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public override string ToString()
+        {
+            return _name;
+        }
     }
 }
