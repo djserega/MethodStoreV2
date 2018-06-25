@@ -43,7 +43,7 @@ namespace MethodStore
             {
                 if (parametersNav.parameters is int id)
                 {
-                    Method = new EF.Context().FindByID(id);
+                    Method = new EF.Context<Models.Method>().FindByID(id);
                 }
             }
 
@@ -58,7 +58,7 @@ namespace MethodStore
 
         private void SaveObject()
         {
-            new EF.Context().UpdateMethods(Method);
+            new EF.Context<Models.Method>().UpdateMethods(Method);
         }
 
         private void ButtonSaveAndClose_Click(object sender, RoutedEventArgs e)

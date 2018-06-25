@@ -103,7 +103,7 @@ namespace MethodStore
             if (DataGridMethods.SelectedItem is Models.Method method)
             {
                 if (await Messages.Question($"Удалить метод {method.MethodInvokationString}?") == ContentDialogResult.Primary)
-                    new EF.Context().RemoveMethods(method);
+                    new EF.Context<Models.Method>().RemoveMethods(method);
             }
             FillListMethods();
 
@@ -167,7 +167,7 @@ namespace MethodStore
         private void FillListMethods()
         {
             ListMethods.Clear();
-            List<Models.Method> methods = new EF.Context().GetListMethods(ParametersSearch);
+            List<Models.Method> methods = new EF.Context<Models.Method>().GetListMethods(ParametersSearch);
             if (methods != null)
                 foreach (Models.Method item in methods)
                     ListMethods.Add(item);
