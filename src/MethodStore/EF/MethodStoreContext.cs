@@ -7,6 +7,7 @@ namespace MethodStore.EF
         private readonly string _fileNameDatabase = "Methods.db";
 
         public DbSet<Models.Method> Methods { get; set; }
+        public DbSet<Models.Group> Groups { get; set; }
 
         public MethodStoreContext()
         {
