@@ -111,5 +111,27 @@ namespace MethodStore
         {
             TryBack();
         }
+
+        private void TextBoxGroup_ClickSelect()
+        {
+            if (Method.ID == 0)
+            {
+                Messages.Show("Сначала нужно записать метод.");
+                return;
+            }
+
+            Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Group>().GetList());
+        }
+
+        private void TextBoxType_ClickSelect()
+        {
+            if (Method.ID == 0)
+            {
+                Messages.Show("Сначала нужно записать метод.");
+                return;
+            }
+
+            Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Types>().GetList());
+        }
     }
 }
