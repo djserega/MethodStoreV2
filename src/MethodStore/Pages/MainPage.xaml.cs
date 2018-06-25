@@ -112,10 +112,7 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                if (parametersNav[0] is Models.Method method)
-                {
-                    _selectedItemMethod = method;
-                }
+                _selectedItemMethod = parametersNav[0] as Models.Method;
             }
         }
 

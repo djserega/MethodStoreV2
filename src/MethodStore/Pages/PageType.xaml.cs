@@ -36,18 +36,13 @@ namespace MethodStore
 
             if (e.Parameter is ParametersNavigating parametersNav)
             {
-                if (parametersNav.CountParameters > 0)
+                if (parametersNav[0] is int id)
                 {
-                    object firstParam = parametersNav.Parameters[0];
-
-                    if (firstParam is int id)
-                    {
-                        Types = new EF.Context<Models.Types>().FindByID(id);
-                    }
-                    else if (firstParam is Models.Method method)
-                    {
-                        _parentMethod = method;
-                    }
+                    Types = new EF.Context<Models.Types>().FindByID(id);
+                }
+                else
+                {
+                    _parentMethod = parametersNav[0] as Models.Method;
                 }
             }
 
