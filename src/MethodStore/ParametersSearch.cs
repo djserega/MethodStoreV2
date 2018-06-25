@@ -36,6 +36,7 @@ namespace MethodStore
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
             _parameterSearchEvents.EvokeParameterSearchEvent();
         }
 
