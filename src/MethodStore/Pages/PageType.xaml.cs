@@ -20,12 +20,12 @@ namespace MethodStore
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class PageGroup : Page
+    public sealed partial class PageType : Page
     {
-        public Models.Group Group { get; set; }
+        public Models.Types Types { get; set; }
         private Models.Method _parentMethod;
 
-        public PageGroup()
+        public PageType()
         {
             InitializeComponent();
         }
@@ -42,7 +42,7 @@ namespace MethodStore
 
                     if (firstParam is int id)
                     {
-                        Group = new EF.Context<Models.Group>().FindByID(id);
+                        Types = new EF.Context<Models.Types>().FindByID(id);
                     }
                     else if (firstParam is Models.Method method)
                     {
@@ -51,20 +51,15 @@ namespace MethodStore
                 }
             }
 
-            if (Group == null)
-                Group = new Models.Group();
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            TryBack(_parentMethod);
+            if (Types == null)
+                Types = new Models.Types();
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            new EF.Context<Models.Group>().UpdateMethods(Group);
-             
-            TryBack(_parentMethod, Group);
+            new EF.Context<Models.Types>().UpdateMethods(Types);
+
+            TryBack(_parentMethod, Types);
         }
 
         private void TryBack(params object[] param)
@@ -75,6 +70,11 @@ namespace MethodStore
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TextBoxName.Focus(FocusState.Programmatic);
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack(_parentMethod);
         }
     }
 }

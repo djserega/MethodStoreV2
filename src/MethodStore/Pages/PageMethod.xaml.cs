@@ -52,6 +52,10 @@ namespace MethodStore
                     {
                         Method.Group = newGroup.Name;
                     }
+                    if (parametersNav[1] is Models.Types newType)
+                    {
+                        Method.Type = newType.Name;
+                    }
                 }
             }
 
@@ -94,7 +98,13 @@ namespace MethodStore
 
         private void TextBoxType_ClickNew()
         {
+            if (Method.ID == 0)
+            {
+                Messages.Show("Сначала нужно записать метод.");
+                return;
+            }
 
+            Navigating.Navigate(typeof(PageType), Method);
         }
 
         private void TextBoxObjectName_ClickNew()

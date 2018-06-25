@@ -104,6 +104,7 @@
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Types.cs" />
     <Compile Include="Navigating.cs" />
     <Compile Include="Pages\PageGroup.xaml.cs">
       <DependentUpon>PageGroup.xaml</DependentUpon>
@@ -114,6 +115,9 @@
     <Compile Include="Models\Method.cs" />
     <Compile Include="Pages\PageMethod.xaml.cs">
       <DependentUpon>PageMethod.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PageType.xaml.cs">
+      <DependentUpon>PageType.xaml</DependentUpon>
     </Compile>
     <Compile Include="ParametersNavigating.cs" />
     <Compile Include="ParametersSearch.cs" />
@@ -152,6 +156,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\PageMethod.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PageType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
