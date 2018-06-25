@@ -43,7 +43,7 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" Orientation="Vertical">
-                <TextBox Header="Вызов метода" Text="{x:Bind Method.MethodInvokationString, Mode=TwoWay}"/>
+                <TextBox Header="Вызов метода" Text="{x:Bind Method.MethodInvokationString, Mode=TwoWay}" IsReadOnly="True"/>
                 <TextBox Header="Группа" Text="{x:Bind Method.Group, Mode=TwoWay}"/>
                 <TextBox Header="Тип" Text="{x:Bind Method.Type, Mode=TwoWay}"/>
                 <TextBox Header="Объект" Text="{x:Bind Method.ObjectName, Mode=TwoWay}"/>
