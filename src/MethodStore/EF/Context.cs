@@ -9,7 +9,7 @@ namespace MethodStore.EF
 {
     internal class Context<T> where T : class
     {
-        internal List<T> GetListMethods(ParametersSearch parametersSearch)
+        internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
             List<Models.Method> methods;
 
@@ -23,7 +23,7 @@ namespace MethodStore.EF
                 {
                     string searchText = parametersSearch.Text;
 
-                    contextMethodsSearch = contextMethods.Where(f => 
+                    contextMethodsSearch = contextMethods.Where(f =>
                         parametersSearch.SearchInGroup && f.Group.Contains(searchText, StringComparison.OrdinalIgnoreCase)
                         || parametersSearch.SearchInType && f.Type.Contains(searchText, StringComparison.OrdinalIgnoreCase)
                         || parametersSearch.SearchInObjectName && f.ObjectName.Contains(searchText, StringComparison.OrdinalIgnoreCase)
@@ -36,7 +36,7 @@ namespace MethodStore.EF
                 contextMethodsSearch?.OrderByDescending(f => f.ID);
                 methods = contextMethodsSearch?.ToList();
             }
-            return methods as List<T>;
+            return methods;
         }
 
         internal void RemoveMethods(T method)
@@ -75,6 +75,24 @@ namespace MethodStore.EF
                         context.Update(objGroup);
 
                 context.SaveChanges();
+            }
+        }
+
+        internal List<T> GetList()
+        {
+            List<T> listT = new List<T>();
+
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                Type typeofT = typeof(T);
+
+                if (typeofT == typeof(Models.Group))
+                    return context.Groups.ToList() as List<T>;
+                else if (typeofT == typeof(Models.Types))
+                    return context.Types.ToList() as List<T>;
+                else
+                    throw new NotImplementedException();
+
             }
         }
     }
