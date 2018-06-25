@@ -28,6 +28,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
+            <Border Width="5"/>
             <Button x:Name="ButtonSaveAndClose" Content="Записать и закрыть" Click="ButtonSaveAndClose_Click" Style="{StaticResource AccentButtonStyle}"/>
             <Border Width="5"/>
             <Button x:Name="ButtonSave" Content="Записать" Click="ButtonSave_Click"/>

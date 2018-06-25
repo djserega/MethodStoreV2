@@ -27,6 +27,7 @@ namespace MethodStore
         public PageGroup()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -43,6 +44,22 @@ namespace MethodStore
 
             if (Group == null)
                 Group = new Models.Group();
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack();
+        }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            new EF.Context<Models.Group>().UpdateMethods(Group);
+            TryBack();
+        }
+
+        private void TryBack()
+        {
+            Navigating.Navigate(typeof(PageMethod));
         }
     }
 }

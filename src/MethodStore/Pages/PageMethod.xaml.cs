@@ -28,6 +28,7 @@ namespace MethodStore
         public PageMethod()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
@@ -65,12 +66,17 @@ namespace MethodStore
         {
             SaveObject();
 
-            Frame.Navigate(typeof(MainPage), new ParametersNavigating() { parameters = Method });
+            TryBack();
+        }
+
+        private void TryBack()
+        {
+            Navigating.Navigate(typeof(MainPage), new ParametersNavigating() { parameters = Method });
         }
 
         private void TextBoxGroup_ClickNew()
         {
-            
+            Navigating.Navigate(typeof(PageGroup));
         }
 
         private void TextBoxType_ClickNew()
@@ -81,6 +87,11 @@ namespace MethodStore
         private void TextBoxObjectName_ClickNew()
         {
 
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack();
         }
     }
 }

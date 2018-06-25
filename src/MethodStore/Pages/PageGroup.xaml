@@ -5,10 +5,17 @@
     xmlns:local="using:MethodStore.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    mc:Ignorable="d" Width="400" Height="120"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
+                <Border Width="5"/>
+                <Button x:Name="ButtonSave" Style="{ThemeResource AccentButtonStyle}" Content="Записать" Click="ButtonSave_Click"/>
+            </StackPanel>
+            <TextBox Header="Имя группы" Text="{x:Bind Group.Name}"/>
+        </StackPanel>
     </Grid>
 </Page>

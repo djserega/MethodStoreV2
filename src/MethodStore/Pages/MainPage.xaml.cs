@@ -52,8 +52,6 @@ namespace MethodStore
                 TryGoBack(e);
 
                 FillListMethods();
-
-                SetVisiblilityBackButton();
             };
         }
 
@@ -79,9 +77,7 @@ namespace MethodStore
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            Navigating(typeof(PageMethod));
-
-            SetVisiblilityBackButton();
+            NavigatingPage(typeof(PageMethod));
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
@@ -93,9 +89,7 @@ namespace MethodStore
             if (idSelectedMethod == null)
                 return;
 
-            Navigating(typeof(PageMethod), idSelectedMethod);
-
-            SetVisiblilityBackButton();
+            NavigatingPage(typeof(PageMethod), idSelectedMethod);
         }
 
         private async void ButtonDelete_Click(object sender, RoutedEventArgs e)
@@ -106,8 +100,6 @@ namespace MethodStore
                     new EF.Context<Models.Method>().RemoveMethods(method);
             }
             FillListMethods();
-
-            SetVisiblilityBackButton();
         }
 
         #endregion
@@ -127,39 +119,29 @@ namespace MethodStore
             }
         }
 
-        private void Navigating(Type typePage, object param = null)
+        private void NavigatingPage(Type typePage, object param = null)
         {
-            ParametersNavigating parameters = new ParametersNavigating()
-            {
-                parameters = param
-            };
-
             ParametersSearch?.SaveSettings();
-
-            Frame.Navigate(typePage, parameters);
+            Navigating.Navigate(typePage, param);
         }
 
         private bool TryGoBack(BackRequestedEventArgs e = null)
         {
             bool result = false;
 
-            if (Frame.CanGoBack)
+            Frame frame = Window.Current.Content as Frame;
+
+            if (frame.CanGoBack)
             {
                 if (e != null)
                     e.Handled = true;
 
-                Frame.GoBack();
+                frame.GoBack();
 
                 result = true;
             }
 
             return result;
-        }
-
-        private void SetVisiblilityBackButton()
-        {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Frame.CanGoBack
-                ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         #endregion
