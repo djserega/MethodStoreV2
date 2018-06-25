@@ -13,10 +13,7 @@ namespace MethodStore
         internal event ParameterSearchEvent ChangedItemSearch;
         internal void EvokeParameterSearchEvent()
         {
-            if (ChangedItemSearch == null)
-                return;
-
-            ChangedItemSearch();
+            ChangedItemSearch?.Invoke();
         }
     }
 }

@@ -5,25 +5,32 @@
     xmlns:local="using:MethodStore"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="80"
-    d:DesignWidth="150">
+    mc:Ignorable="d" Height="60">
 
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="53"/>
             <ColumnDefinition Width="53"/>
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text, Mode=TwoWay}"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="55*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="ButtonSelect" Grid.Row="1" Content="..." Width="50" VerticalAlignment="Center" Click="ButtonSelect_Click"/>
+        </Grid>
+        <Grid Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="55*"/>
             </Grid.RowDefinitions>
             
-            <Button x:Name="ButtonNew" Grid.Row="1" Content="New" VerticalAlignment="Center" Click="ButtonNew_Click"/>
+            <Button x:Name="ButtonNew" Grid.Row="1" Content="New" Width="50" VerticalAlignment="Center" Click="ButtonNew_Click"/>
         </Grid>
 
     </Grid>

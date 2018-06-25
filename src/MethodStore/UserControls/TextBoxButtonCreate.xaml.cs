@@ -19,12 +19,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MethodStore
 {
-    internal delegate void Click();
+    internal delegate void ClickNew();
+    internal delegate void ClickSelect();
 
     public sealed partial class TextBoxButtonCreate : UserControl, INotifyPropertyChanged
     {
-        internal event Click ClickNew;
-
         public string Header { get; set; }
         public string Text
         {
@@ -42,20 +41,22 @@ namespace MethodStore
             InitializeComponent();
         }
 
+        internal event ClickNew ClickNew;
         private void ButtonNew_Click(object sender, RoutedEventArgs e)
         {
-            if (ClickNew == null)
-                return;
-
-            ClickNew();
+            ClickNew?.Invoke();
         }
-
-
+       
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        internal event ClickSelect ClickSelect;
+        private void ButtonSelect_Click(object sender, RoutedEventArgs e)
+        {
+            ClickSelect?.Invoke();
+        }
     }
 }

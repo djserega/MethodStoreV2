@@ -107,11 +107,6 @@ namespace MethodStore
             Navigating.Navigate(typeof(PageType), Method);
         }
 
-        private void TextBoxObjectName_ClickNew()
-        {
-
-        }
-
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             TryBack();
