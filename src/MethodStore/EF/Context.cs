@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MethodStore.EF
 {
-    internal class Context
+    internal class Context<T> where T : class
     {
-        internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
+        internal List<T> GetListMethods(ParametersSearch parametersSearch)
         {
             List<Models.Method> methods;
 
@@ -36,10 +36,10 @@ namespace MethodStore.EF
                 contextMethodsSearch?.OrderByDescending(f => f.ID);
                 methods = contextMethodsSearch?.ToList();
             }
-            return methods;
+            return methods as List<T>;
         }
 
-        internal void RemoveMethods(Models.Method method)
+        internal void RemoveMethods(T method)
         {
             using (MethodStoreContext context = new MethodStoreContext())
             {
@@ -48,22 +48,31 @@ namespace MethodStore.EF
             }
         }
 
-        internal Models.Method FindByID(int id)
+        internal T FindByID(int id)
         {
             using (MethodStoreContext context = new MethodStoreContext())
             {
-                return context.Find(typeof(Models.Method), id) as Models.Method;
+                object result = context.Find(typeof(Models.Method), id) as Models.Method;
+
+                return result as T;
             }
         }
 
-        internal void UpdateMethods(Models.Method method)
+        internal void UpdateMethods(T obj)
         {
             using (MethodStoreContext context = new MethodStoreContext())
             {
-                if (method.ID == 0)
-                    context.Add(method);
-                else
-                    context.Update(method);
+
+                if (obj is Models.Method objMethod)
+                    if (objMethod.ID == 0)
+                        context.Add(objMethod);
+                    else
+                        context.Update(objMethod);
+                else if (obj is Models.Group objGroup)
+                    if (objGroup.ID == 0)
+                        context.Add(objGroup);
+                    else
+                        context.Update(objGroup);
 
                 context.SaveChanges();
             }
