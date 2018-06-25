@@ -5,17 +5,20 @@
     xmlns:local="using:MethodStore.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Width="400" Height="600" Loaded="Page_Loaded"
+    mc:Ignorable="d" Width="400" Height="400" Loaded="Page_Loaded" x:Name="PageListPage"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
                 <Border Width="5"/>
                 <Button x:Name="ButtonSelect" Style="{ThemeResource AccentButtonStyle}" Content="Выбрать" Click="ButtonSelect_Click"/>
             </StackPanel>
-            <ListView x:Name="ListView" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
-        </StackPanel>
+        <ListView x:Name="ListView" Grid.Row="1" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
     </Grid>
 </Page>
