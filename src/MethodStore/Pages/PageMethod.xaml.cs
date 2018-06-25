@@ -67,5 +67,20 @@ namespace MethodStore
 
             Frame.Navigate(typeof(MainPage), new ParametersNavigating() { parameters = Method });
         }
+
+        private void TextBoxGroup_ClickNew()
+        {
+            
+        }
+
+        private void TextBoxType_ClickNew()
+        {
+
+        }
+
+        private void TextBoxObjectName_ClickNew()
+        {
+
+        }
     }
 }

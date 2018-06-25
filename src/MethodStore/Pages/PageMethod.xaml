@@ -44,9 +44,9 @@
 
             <StackPanel Grid.Column="0" Orientation="Vertical">
                 <TextBox Header="Вызов метода" Text="{x:Bind Method.MethodInvokationString, Mode=TwoWay}" IsReadOnly="True"/>
-                <TextBox Header="Группа" Text="{x:Bind Method.Group, Mode=TwoWay}"/>
-                <TextBox Header="Тип" Text="{x:Bind Method.Type, Mode=TwoWay}"/>
-                <TextBox Header="Объект" Text="{x:Bind Method.ObjectName, Mode=TwoWay}"/>
+                <local:TextBoxButtonCreate x:Name="TextBoxGroup" Header="Группа" Text="{x:Bind Method.Group, Mode=TwoWay}" ClickNew="TextBoxGroup_ClickNew"/>
+                <local:TextBoxButtonCreate x:Name="TextBoxType" Header="Тип" Text="{x:Bind Method.Type, Mode=TwoWay}" ClickNew="TextBoxType_ClickNew"/>
+                <local:TextBoxButtonCreate x:Name="TextBoxObjectName" Header="Объект" Text="{x:Bind Method.ObjectName, Mode=TwoWay}" ClickNew="TextBoxObjectName_ClickNew"/>
                 <TextBox Header="Метод" Text="{x:Bind Method.MethodName, Mode=TwoWay}"/>
             </StackPanel>
 
