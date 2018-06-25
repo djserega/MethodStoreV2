@@ -90,6 +90,9 @@ namespace MethodStore
             if (DataGridMethods.SelectedItem is Models.Method method)
                 idSelectedMethod = method.ID;
 
+            if (idSelectedMethod == null)
+                return;
+
             Navigating(typeof(PageMethod), idSelectedMethod);
 
             SetVisiblilityBackButton();
