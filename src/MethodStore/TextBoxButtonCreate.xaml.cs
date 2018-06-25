@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -19,12 +21,21 @@ namespace MethodStore
 {
     internal delegate void Click();
 
-    public sealed partial class TextBoxButtonCreate : UserControl
+    public sealed partial class TextBoxButtonCreate : UserControl, INotifyPropertyChanged
     {
         internal event Click ClickNew;
 
         public string Header { get; set; }
-        public string Text { get; set; }
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set
+            {
+                SetValue(TextProperty, value);
+                NotifyPropertyChanged();
+            }
+        }
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBox), null);
 
         public TextBoxButtonCreate()
         {
@@ -38,5 +49,13 @@ namespace MethodStore
 
             ClickNew();
         }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
     }
 }
