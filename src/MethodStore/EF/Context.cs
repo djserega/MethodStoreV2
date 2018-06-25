@@ -24,13 +24,13 @@ namespace MethodStore.EF
                     string searchText = parametersSearch.Text;
 
                     if (parametersSearch.SearchInGroup)
-                        contextMethodsSearch = contextMethods.Where(f => f.Group.Contains(searchText));
+                        contextMethodsSearch = contextMethods.Where(f => f.Group.Contains(searchText, StringComparison.OrdinalIgnoreCase));
                     if (parametersSearch.SearchInType)
-                        contextMethodsSearch = contextMethods.Where(f => f.Type.Contains(searchText));
+                        contextMethodsSearch = contextMethods.Where(f => f.Type.Contains(searchText, StringComparison.OrdinalIgnoreCase));
                     if (parametersSearch.SearchInObjectName)
-                        contextMethodsSearch = contextMethods.Where(f => f.ObjectName.Contains(searchText));
+                        contextMethodsSearch = contextMethods.Where(f => f.ObjectName.Contains(searchText, StringComparison.OrdinalIgnoreCase));
                     if (parametersSearch.SearchInMethodName)
-                        contextMethodsSearch = contextMethods.Where(f => f.MethodName.Contains(searchText));
+                        contextMethodsSearch = contextMethods.Where(f => f.MethodName.Contains(searchText, StringComparison.OrdinalIgnoreCase));
                 }
 
                 if (contextMethodsSearch == null)
