@@ -32,7 +32,6 @@ namespace MethodStore
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

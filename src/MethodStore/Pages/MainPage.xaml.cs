@@ -57,7 +57,6 @@ namespace MethodStore
 
         private void PageMainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationView.GetForCurrentView().TryResizeView(new Size(1200, 600));
             FillListMethods();
 
             if (_selectedItemMethod != null)
