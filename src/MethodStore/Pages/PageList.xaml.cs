@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +24,7 @@ namespace MethodStore
     public sealed partial class PageList : Page
     {
         private Models.Method _parentMethod;
+        private Type _typeList;
 
         public PageList()
         {
@@ -38,9 +40,15 @@ namespace MethodStore
                 _parentMethod = parametersNav[0] as Models.Method;
 
                 if (parametersNav[1] is List<Models.Group> listGroup)
+                {
                     ListView.ItemsSource = listGroup;
+                    _typeList = typeof(Models.Group);
+                }
                 else if (parametersNav[1] is List<Models.Types> listType)
+                {
                     ListView.ItemsSource = listType;
+                    _typeList = typeof(Models.Types);
+                }
             }
         }
 
@@ -57,6 +65,13 @@ namespace MethodStore
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ListView.Focus(FocusState.Programmatic);
+
+            string newTitle = string.Empty;
+            if (_typeList == typeof(Models.Group))
+                newTitle = "Выбор группы";
+            else if (_typeList == typeof(Models.Types))
+                newTitle = "Выбор типа";
+            ApplicationView.GetForCurrentView().Title = newTitle;
         }
 
         private void TryBack(params object[] param)

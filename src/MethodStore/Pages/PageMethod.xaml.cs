@@ -32,6 +32,7 @@ namespace MethodStore
 
         private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
         {
+            ApplicationView.GetForCurrentView().Title = "Метод" + Method?.MethodInvokationString;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
