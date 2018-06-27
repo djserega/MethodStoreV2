@@ -9,13 +9,21 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
-                <Border Width="5"/>
-                <Button x:Name="ButtonSave" Style="{ThemeResource AccentButtonStyle}" Content="Записать" Click="ButtonSave_Click"/>
-            </StackPanel>
-            <TextBox x:Name="TextBoxName" Header="Имя типа" Text="{x:Bind Types.Name, Mode=TwoWay}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
+            <Border Width="5"/>
+            <Button x:Name="ButtonSave" Style="{ThemeResource AccentButtonStyle}" Content="Записать" Click="ButtonSave_Click"/>
         </StackPanel>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxName" Header="Имя типа" Text="{x:Bind Types.Name, Mode=TwoWay}"/>
     </Grid>
 </Page>

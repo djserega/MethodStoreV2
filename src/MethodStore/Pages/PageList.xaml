@@ -9,16 +9,21 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
             
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
                 <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
                 <Border Width="5"/>
                 <Button x:Name="ButtonSelect" Style="{ThemeResource AccentButtonStyle}" Content="Выбрать" Click="ButtonSelect_Click"/>
             </StackPanel>
-        <ListView x:Name="ListView" Grid.Row="1" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
+        <ListView x:Name="ListView" Grid.Row="1" Grid.Column="1" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
     </Grid>
 </Page>
