@@ -52,12 +52,20 @@
                 <TextBox Header="Метод" Text="{x:Bind Method.MethodName, Mode=TwoWay}"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Vertical">
-                <CheckBox Content="Включать в шаблоны текста"/>
-                <CheckBox Content="Добавлять в контекстное меню"/>
-                <TextBox Header="Название"/>
-                <TextBox Header="Строка автозамены"/>
-            </StackPanel>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <CheckBox Grid.Row="0" Content="Включать в шаблоны текста"/>
+
+                <StackPanel Grid.Row="1" x:Name="StackPanelAddToText" Orientation="Vertical">
+                    <CheckBox Content="Добавлять в контекстное меню"/>
+                    <TextBox Header="Название"/>
+                    <TextBox Header="Строка автозамены"/>
+                </StackPanel>
+            </Grid>
 
         </Grid>
 
