@@ -101,10 +101,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="EF\Context.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\RemovingText.cs" />
     <Compile Include="Models\Types.cs" />
     <Compile Include="Navigating.cs" />
     <Compile Include="Pages\PageGroup.xaml.cs">
