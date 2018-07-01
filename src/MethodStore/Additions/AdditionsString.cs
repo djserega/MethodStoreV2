@@ -18,10 +18,14 @@ namespace MethodStore
                 return text;
         }
 
-        public static string RemoveStartText(this string text, string find)
+        public static string RemoveStartText(this string text, string find, char prefix = char.MinValue)
         {
-            if (text.StartsWith(find))
-                return text.Substring(find.Length);
+            string textFind = find;
+            if (prefix != char.MinValue)
+                textFind += prefix;
+
+            if (text.StartsWith(textFind))
+                return text.Substring(textFind.Length);
             else
                 return text;
         }

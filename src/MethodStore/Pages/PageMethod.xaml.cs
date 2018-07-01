@@ -135,5 +135,15 @@ namespace MethodStore
 
             Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Types>().GetList());
         }
+
+        private async void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            TextParser textParser = new TextParser();
+            await textParser.GetTextInClipboard();
+            if (textParser.MethodInClipboard != null)
+            {
+                Method.Fill(textParser.MethodInClipboard);
+            }
+        }
     }
 }

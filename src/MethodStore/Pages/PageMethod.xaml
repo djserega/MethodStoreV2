@@ -33,6 +33,8 @@
             <Button x:Name="ButtonSaveAndClose" Content="Записать и закрыть" Click="ButtonSaveAndClose_Click" Style="{StaticResource AccentButtonStyle}"/>
             <Border Width="5"/>
             <Button x:Name="ButtonSave" Content="Записать" Click="ButtonSave_Click"/>
+            <Border Width="5"/>
+            <Button x:Name="ButtonGetInfoInClipboard" Content="Из буфера обмена" Click="ButtonGetInfoInClipboard_Click"/>
         </StackPanel>
 
 
