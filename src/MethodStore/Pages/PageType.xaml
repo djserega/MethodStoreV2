@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -26,5 +27,6 @@
             <Button x:Name="ButtonSave" Style="{ThemeResource AccentButtonStyle}" Content="Записать" Click="ButtonSave_Click"/>
         </StackPanel>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="TextBoxName" Header="Имя типа" Text="{x:Bind Types.Name, Mode=TwoWay}"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" x:Name="CheckBoxAddToInvocationString" Content="Добавлять в строку вызова" IsChecked="{x:Bind Types.AddToInvocationString, Mode=TwoWay}"/>
     </Grid>
 </Page>

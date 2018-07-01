@@ -66,7 +66,10 @@ namespace MethodStore
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TextBoxName.Focus(FocusState.Programmatic);
-            ApplicationView.GetForCurrentView().Title = "Создание типа";
+            if (Types.ID == 0)
+                ApplicationView.GetForCurrentView().Title = "Создание типа";
+            else
+                ApplicationView.GetForCurrentView().Title = "Тип";
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

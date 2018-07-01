@@ -99,11 +99,12 @@ namespace MethodStore
 
         private void TextBoxType_ClickNew()
         {
-            if (Method.ID == 0)
-            {
-                Messages.Show("Сначала нужно записать метод.");
-                return;
-            }
+            SaveObject();
+            //if (Method.ID == 0)
+            //{
+            //    Messages.Show("Сначала нужно записать метод.");
+            //    return;
+            //}
 
             Navigating.Navigate(typeof(PageType), Method);
         }
@@ -127,11 +128,12 @@ namespace MethodStore
 
         private void TextBoxType_ClickSelect()
         {
-            if (Method.ID == 0)
-            {
-                Messages.Show("Сначала нужно записать метод.");
-                return;
-            }
+            SaveObject();
+            //if (Method.ID == 0)
+            //{
+            //    Messages.Show("Сначала нужно записать метод.");
+            //    return;
+            //}
 
             Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Types>().GetList());
         }

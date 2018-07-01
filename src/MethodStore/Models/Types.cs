@@ -12,9 +12,11 @@ namespace MethodStore.Models
     {
         private int _iD;
         private string _name;
+        private bool _addToInvocationString;
 
         public int ID { get => _iD; set { _iD = value; NotifyPropertyChanged(); } }
         public string Name { get => _name; set { _name = value; NotifyPropertyChanged(); } }
+        public bool AddToInvocationString { get => _addToInvocationString; set { _addToInvocationString = value; NotifyPropertyChanged(); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
