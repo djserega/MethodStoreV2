@@ -41,5 +41,13 @@ namespace MethodStore.Models
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        internal void Fill(Method method)
+        {
+            Type = method.Type;
+            ObjectName = method.ObjectName;
+            MethodName = method.MethodName;
+        }
+
     }
 }
