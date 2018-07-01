@@ -58,7 +58,7 @@ namespace MethodStore
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            new EF.Context<Models.Group>().UpdateMethods(Group);
+            new EF.Context<Models.Group>().Update(Group);
 
             TryBack(_parentMethod, Group);
         }

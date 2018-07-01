@@ -70,7 +70,7 @@ namespace MethodStore
 
         private void SaveObject()
         {
-            new EF.Context<Models.Method>().UpdateMethods(Method);
+            new EF.Context<Models.Method>().Update(Method);
         }
 
         private void ButtonSaveAndClose_Click(object sender, RoutedEventArgs e)

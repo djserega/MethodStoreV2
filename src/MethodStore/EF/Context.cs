@@ -39,26 +39,7 @@ namespace MethodStore.EF
             return methods;
         }
 
-        internal void RemoveMethods(T method)
-        {
-            using (MethodStoreContext context = new MethodStoreContext())
-            {
-                context.Remove(method);
-                context.SaveChanges();
-            }
-        }
-
-        internal T FindByID(int id)
-        {
-            using (MethodStoreContext context = new MethodStoreContext())
-            {
-                object result = context.Find(typeof(Models.Method), id) as Models.Method;
-
-                return result as T;
-            }
-        }
-
-        internal void UpdateMethods(T obj)
+        internal void Update(T obj)
         {
             using (MethodStoreContext context = new MethodStoreContext())
             {
@@ -73,8 +54,30 @@ namespace MethodStore.EF
                         context.Add(objGroup);
                     else
                         context.Update(objGroup);
+                else if (obj is Models.Types objTypes)
+                    if (objTypes.ID == 0)
+                        context.Add(objTypes);
+                    else
+                        context.Update(objTypes);
 
                 context.SaveChanges();
+            }
+        }
+
+        internal void RemoveMethods(T method)
+        {
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                context.Remove(method);
+                context.SaveChanges();
+            }
+        }
+
+        internal T FindByID(int id)
+        {
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                return context.Find(typeof(T), id) as T;
             }
         }
 

@@ -53,7 +53,7 @@ namespace MethodStore
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            new EF.Context<Models.Types>().UpdateMethods(Types);
+            new EF.Context<Models.Types>().Update(Types);
 
             TryBack(_parentMethod, Types);
         }
