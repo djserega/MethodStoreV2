@@ -32,7 +32,10 @@ namespace MethodStore
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            new EF.MethodStoreContext();
+            using (EF.MethodStoreContext methodStore = new EF.MethodStoreContext())
+            {
+                methodStore.InitializingDB();
+            }
         }
 
         /// <summary>

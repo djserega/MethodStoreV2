@@ -90,9 +90,19 @@ namespace MethodStore.EF
                     return context.Groups.ToList() as List<T>;
                 else if (typeofT == typeof(Models.Types))
                     return context.Types.ToList() as List<T>;
+                else if (typeofT == typeof(Models.RemovingText))
+                    return context.RemovingTexts.ToList() as List<T>;
                 else
                     throw new NotImplementedException();
 
+            }
+        }
+
+        internal bool IsEmpty()
+        {
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                return !context.RemovingTexts.Any();
             }
         }
     }
