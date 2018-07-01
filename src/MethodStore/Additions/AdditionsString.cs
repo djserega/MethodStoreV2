@@ -48,5 +48,14 @@ namespace MethodStore
 
             return tempString;
         }
+
+        public static string GetTextBefore(this string text, char charSeparator = '.')
+        {
+            int positionSeparator = text.IndexOf(charSeparator);
+            if (positionSeparator < 0)
+                return string.Empty;
+            else
+                return text.Substring(0, positionSeparator);
+        }
     }
 }
