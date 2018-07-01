@@ -39,7 +39,7 @@ namespace MethodStore
             return text.Replace(" ", "");
         }
 
-        private static string TrimNotUsedChar(string text)
+        public static string TrimNotUsedChar(this string text)
         {
             string tempString = text.TrimStart().TrimStart('=').Trim();
 
