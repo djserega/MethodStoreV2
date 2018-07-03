@@ -60,12 +60,12 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 
-                <CheckBox Grid.Row="0" Content="Включать в шаблоны текста"/>
+                <CheckBox Grid.Row="0" Content="Включать в шаблоны текста" IsChecked="{x:Bind Method.TemplateAddToText, Mode=TwoWay}" />
 
-                <StackPanel Grid.Row="1" x:Name="StackPanelAddToText" Orientation="Vertical">
-                    <CheckBox Content="Добавлять в контекстное меню"/>
-                    <TextBox Header="Название"/>
-                    <TextBox Header="Строка автозамены"/>
+                <StackPanel Grid.Row="1" Orientation="Vertical">
+                    <CheckBox Content="Добавлять в контекстное меню" IsEnabled="{x:Bind Method.TemplateAddToText}"/>
+                    <TextBox Header="Название" IsEnabled="{x:Bind Method.TemplateAddToText}"/>
+                    <TextBox Header="Строка автозамены" IsEnabled="{x:Bind Method.TemplateAddToText}"/>
                 </StackPanel>
             </Grid>
 
