@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MethodStore.Models
 {
-    public class Method : INotifyPropertyChanged
+    public class Method : NotifyPropertyChangedClass
     {
         private int _iD;
         private string _group;
@@ -35,12 +35,6 @@ namespace MethodStore.Models
         public string TemplateName { get => _templateName; set { _templateName = value; NotifyPropertyChanged(); } }
         public string TemplateTextCorrect { get => _templateTextCorrect; set { _templateTextCorrect = value; NotifyPropertyChanged(); } }
         public string TemplateAddToContextMenu { get => _templateAddToContextMenu; set { _templateAddToContextMenu = value; NotifyPropertyChanged(); } }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         internal void Fill(Method method)
         {

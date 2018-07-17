@@ -106,6 +106,7 @@
     <Compile Include="Messages.cs" />
     <Compile Include="EF\MethodStoreContext.cs" />
     <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\NotifyPropertyChanged.cs" />
     <Compile Include="Models\RemovingText.cs" />
     <Compile Include="Models\Types.cs" />
     <Compile Include="Navigating.cs" />
