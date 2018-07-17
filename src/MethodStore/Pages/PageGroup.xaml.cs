@@ -40,6 +40,7 @@ namespace MethodStore
                 if (parametersNav[0] is int id)
                 {
                     Group = new EF.Context<Models.Group>().FindByID(id);
+                    _parentMethod = parametersNav[1] as Models.Method;
                 }
                 else if (parametersNav[0] is string groupName)
                 {

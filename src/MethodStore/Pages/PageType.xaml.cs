@@ -40,6 +40,7 @@ namespace MethodStore
                 if (parametersNav[0] is int id)
                 {
                     Types = new EF.Context<Models.Types>().FindByID(id);
+                    _parentMethod = parametersNav[1] as Models.Method;
                 }
                 else if (parametersNav[0] is string typeName)
                 {
