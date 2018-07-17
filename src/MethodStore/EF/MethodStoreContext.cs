@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Threading.Tasks;
 
 namespace MethodStore.EF
 {
@@ -14,6 +16,17 @@ namespace MethodStore.EF
         public MethodStoreContext()
         {
             Database.EnsureCreated();
+        }
+
+        public async Task<T> FindByNameAsync<T>(string name) where T : class
+        {
+            Type typeofT = typeof(T);
+            if (typeofT == typeof(Models.Group))
+                return await Groups.SingleOrDefaultAsync(f => f.Name == name) as T;
+            else if (typeofT == typeof(Models.Types))
+                return await Types.SingleOrDefaultAsync(f => f.Name == name) as T;
+            else
+                return null;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

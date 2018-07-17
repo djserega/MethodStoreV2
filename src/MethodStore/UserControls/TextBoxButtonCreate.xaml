@@ -11,8 +11,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3"/>
-            <ColumnDefinition Width="53"/>
-            <ColumnDefinition Width="53"/>
+            <ColumnDefinition Width="58"/>
+            <ColumnDefinition Width="58"/>
+            <ColumnDefinition Width="58"/>
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text, Mode=TwoWay}"/>
@@ -22,7 +23,7 @@
                 <RowDefinition Height="55*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="ButtonSelect" Grid.Row="1" Content="..." Width="50" VerticalAlignment="Center" Click="ButtonSelect_Click"/>
+            <Button x:Name="ButtonSelect" Grid.Row="1" Content="..." Width="57" VerticalAlignment="Center" Click="ButtonSelect_Click"/>
         </Grid>
         <Grid Grid.Column="3">
             <Grid.RowDefinitions>
@@ -30,7 +31,15 @@
                 <RowDefinition Height="55*"/>
             </Grid.RowDefinitions>
             
-            <Button x:Name="ButtonNew" Grid.Row="1" Content="New" Width="50" VerticalAlignment="Center" Click="ButtonNew_Click"/>
+            <Button x:Name="ButtonNew" Grid.Row="1" Content="New" Width="57" VerticalAlignment="Center" Click="ButtonNew_Click"/>
+        </Grid>
+        <Grid Grid.Column="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="55*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="ButtonOpen" Grid.Row="1" Content="Open" Width="57" VerticalAlignment="Center" Click="ButtonOpen_Click"/>
         </Grid>
 
     </Grid>

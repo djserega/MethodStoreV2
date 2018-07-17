@@ -21,6 +21,7 @@ namespace MethodStore
 {
     internal delegate void ClickNew();
     internal delegate void ClickSelect();
+    internal delegate void ClickOpen();
 
     public sealed partial class TextBoxButtonCreate : UserControl, INotifyPropertyChanged
     {
@@ -47,16 +48,23 @@ namespace MethodStore
             ClickNew?.Invoke();
         }
        
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         internal event ClickSelect ClickSelect;
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)
         {
             ClickSelect?.Invoke();
+        }
+
+        internal event ClickOpen ClickOpen;
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            ClickOpen?.Invoke();
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

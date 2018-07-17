@@ -41,6 +41,11 @@ namespace MethodStore
                 {
                     Group = new EF.Context<Models.Group>().FindByID(id);
                 }
+                else if (parametersNav[0] is string groupName)
+                {
+                    Group = new EF.Context<Models.Group>().FindByName(groupName);
+                    _parentMethod = parametersNav[1] as Models.Method;
+                }
                 else
                 {
                     _parentMethod = parametersNav[0] as Models.Method;
@@ -71,7 +76,10 @@ namespace MethodStore
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TextBoxName.Focus(FocusState.Programmatic);
-            ApplicationView.GetForCurrentView().Title = "Создание группы";
+            if (Group.ID == 0)
+                ApplicationView.GetForCurrentView().Title = "Создание группы";
+            else
+                ApplicationView.GetForCurrentView().Title = "Группа";
         }
     }
 }

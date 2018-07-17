@@ -81,6 +81,14 @@ namespace MethodStore.EF
             }
         }
 
+        internal T FindByName(string name)
+        {
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                return context.FindByNameAsync<T>(name).Result;
+            }
+        }
+
         internal List<T> GetList()
         {
             List<T> listT = new List<T>();

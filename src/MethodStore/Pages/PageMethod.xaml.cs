@@ -85,57 +85,56 @@ namespace MethodStore
             Navigating.Navigate(typeof(MainPage), Method);
         }
 
+        #region TextBoxGroup
+
         private void TextBoxGroup_ClickNew()
         {
             SaveObject();
-            //if (Method.ID == 0)
-            //{
-            //    Messages.Show("Сначала нужно записать метод.");
-            //    return;
-            //}
 
             Navigating.Navigate(typeof(PageGroup), Method);
-        }
-
-        private void TextBoxType_ClickNew()
-        {
-            SaveObject();
-            //if (Method.ID == 0)
-            //{
-            //    Messages.Show("Сначала нужно записать метод.");
-            //    return;
-            //}
-
-            Navigating.Navigate(typeof(PageType), Method);
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            TryBack();
         }
 
         private void TextBoxGroup_ClickSelect()
         {
             SaveObject();
-            //if (Method.ID == 0)
-            //{
-            //    Messages.Show("Сначала нужно записать метод.");
-            //    return;
-            //}
-
+        
             Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Group>().GetList());
+        }
+
+        private void TextBoxGroup_ClickOpen()
+        {
+            Navigating.Navigate(typeof(PageGroup), Method.Group, Method);
+        }
+
+        #endregion
+
+        #region TextBoxType
+
+        private void TextBoxType_ClickNew()
+        {
+            SaveObject();
+
+            Navigating.Navigate(typeof(PageType), Method);
         }
 
         private void TextBoxType_ClickSelect()
         {
             SaveObject();
-            //if (Method.ID == 0)
-            //{
-            //    Messages.Show("Сначала нужно записать метод.");
-            //    return;
-            //}
 
             Navigating.Navigate(typeof(PageList), Method, new EF.Context<Models.Types>().GetList());
+        }
+
+        private void TextBoxType_ClickOpen()
+        {
+            Navigating.Navigate(typeof(PageType), Method.Type,  Method);
+        }
+
+        #endregion
+
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack();
         }
 
         private async void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
@@ -147,5 +146,6 @@ namespace MethodStore
                 Method.Fill(textParser.MethodInClipboard);
             }
         }
+
     }
 }
