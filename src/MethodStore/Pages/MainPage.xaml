@@ -55,13 +55,14 @@
 
         </Grid>
 
-        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2" ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False" IsReadOnly="True">
+        <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2" ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False" IsReadOnly="True"
+                      CanUserResizeColumns="False" CanUserSortColumns="True">
             <uwp:DataGrid.Columns>
-                <uwp:DataGridTextColumn Header="Группа" Binding="{Binding Group}"/>
-                <uwp:DataGridTextColumn Header="Тип" Binding="{Binding Type}" />
-                <uwp:DataGridTextColumn Header="Объект" Binding="{Binding ObjectName}" />
-                <uwp:DataGridTextColumn Header="Метод" Binding="{Binding MethodName}" />
-                <uwp:DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                <uwp:DataGridTextColumn Header="Группа" Binding="{Binding Group}" MinWidth="250" MaxWidth="250"/>
+                <uwp:DataGridTextColumn Header="Тип" Binding="{Binding Type}" MinWidth="250" MaxWidth="250"/>
+                <uwp:DataGridTextColumn Header="Объект" Binding="{Binding ObjectName}" MinWidth="300" MaxWidth="300"/>
+                <uwp:DataGridTextColumn Header="Метод" Binding="{Binding MethodName}" MinWidth="400" MaxWidth="400"/>
+                <uwp:DataGridTextColumn Header="Описание" Binding="{Binding Description}" MinWidth="150" MaxWidth="200"/>
             </uwp:DataGrid.Columns>
         </uwp:DataGrid>
     </Grid>
