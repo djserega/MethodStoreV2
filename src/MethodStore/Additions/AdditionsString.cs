@@ -61,5 +61,21 @@ namespace MethodStore
             else
                 return text.Substring(0, positionSeparator);
         }
+
+        public static string GetTextAfter(this string text, char charSeparator = '.', bool trim = true)
+        {
+            int positionSeparator = text.IndexOf(charSeparator);
+            if (positionSeparator < 0)
+                return text;
+            else
+            {
+                string textAfter = text.Substring(++positionSeparator);
+                if (trim)
+                    return textAfter.Trim();
+                else
+                    return textAfter;
+            }
+        }
+
     }
 }

@@ -34,7 +34,12 @@ namespace MethodStore
 
                 if (countDot >= 1 && countOpeningBracket == 1 && countClosingBracket == 1)
                 {
-                    MethodInClipboard.ObjectName = text.GetTextBefore();
+                    string textObjectName = text.GetTextBefore();
+
+                    if (textObjectName.Count(f => f == '=') > 0)
+                        MethodInClipboard.ObjectName = textObjectName.GetTextAfter('=');
+                    else
+                        MethodInClipboard.ObjectName = textObjectName;
 
                     text = text.RemoveStartText(MethodInClipboard.ObjectName, '.');
 
