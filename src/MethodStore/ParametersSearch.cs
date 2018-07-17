@@ -9,7 +9,7 @@ using Windows.Storage;
 
 namespace MethodStore
 {
-    public class ParametersSearch : INotifyPropertyChanged, IDisposable
+    public class ParametersSearch : Models.NotifyPropertyChangedClass, IDisposable
     {
         private ParameterSearchEvents _parameterSearchEvents;
         private ApplicationDataContainer localSettings;
@@ -32,12 +32,12 @@ namespace MethodStore
         public bool SearchInObjectName { get => _searchInObjectName; set { _searchInObjectName = value; NotifyPropertyChanged(); } }
         public bool SearchInMethodName { get => _searchInMethodName; set { _searchInMethodName = value; NotifyPropertyChanged(); } }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        public override void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            base.NotifyPropertyChanged(propertyName);
 
             _parameterSearchEvents.EvokeParameterSearchEvent();
+            SaveSettings();
         }
 
         private void LoadLocalSettings()

@@ -11,7 +11,7 @@ namespace MethodStore.EF
     {
         internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
-            List<Models.Method> methods;
+            List<Models.Method> methods = null;
 
             using (MethodStoreContext context = new MethodStoreContext())
             {
@@ -34,7 +34,14 @@ namespace MethodStore.EF
                     contextMethodsSearch = contextMethods.Where(f => true);
 
                 contextMethodsSearch?.OrderByDescending(f => f.ID);
-                methods = contextMethodsSearch?.ToList();
+                try
+                {
+                    methods = contextMethodsSearch?.ToList();
+                }
+                catch (Exception ex)
+                {
+                    Messages.Show("При поиске произошла ошибка.\n" + ex.Message);
+                }
             }
             return methods;
         }
