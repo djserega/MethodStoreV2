@@ -28,7 +28,9 @@ namespace MethodStore
         {
             get
             {
-                if (indexParameter < CountParameters)
+                if (indexParameter < 0)
+                    return null;
+                else if (indexParameter < CountParameters)
                     return _parameters[indexParameter];
                 else
                     return null;
