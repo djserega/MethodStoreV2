@@ -18,12 +18,16 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            
-            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
-                <Border Width="5"/>
-                <Button x:Name="ButtonSelect" Style="{ThemeResource AccentButtonStyle}" Content="Выбрать" Click="ButtonSelect_Click"/>
-            </StackPanel>
-        <ListView x:Name="ListView" Grid.Row="1" Grid.Column="1" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+            <Button x:Name="ButtonBack" Style="{ThemeResource NavigationBackButtonNormalStyle}" Click="ButtonBack_Click"/>
+            <Border Width="5"/>
+            <Button x:Name="ButtonSelect" Style="{ThemeResource AccentButtonStyle}" Content="Выбрать" Click="ButtonSelect_Click"/>
+            <Border Width="5"/>
+            <Button x:Name="ButtonOpen" Content="Открыть" Click="ButtonOpen_Click"/>
+            <Border Width="5"/>
+            <Button x:Name="ButtonNew" Content="Создать" Click="ButtonNew_Click"/>
+        </StackPanel>
+        <ListView x:Name="ListViewModels" Grid.Row="1" Grid.Column="1" IsItemClickEnabled="False" IsSwipeEnabled="False" CanDragItems="False" SelectionMode="Single"/>
     </Grid>
 </Page>

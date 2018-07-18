@@ -18,7 +18,15 @@ namespace MethodStore
             };
 
             Frame frame = Window.Current.Content as Frame;
-            frame.Navigate(typePage, parameters);
+
+            try
+            {
+                frame.Navigate(typePage, parameters);
+            }
+            catch (Exception ex)
+            {
+                Messages.Show("Ошибка смены страницы.\n" + ex.Message);
+            }
         }
     }
 }

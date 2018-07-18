@@ -25,6 +25,7 @@ namespace MethodStore
     {
         public Models.Types Types { get; set; }
         private Models.Method _parentMethod;
+        private Type _backPage;
 
         public PageType()
         {
@@ -49,12 +50,26 @@ namespace MethodStore
                 }
                 else
                 {
-                    _parentMethod = parametersNav[0] as Models.Method;
+                    if (parametersNav[0] is Type typeParam)
+                    {
+                        _backPage = typeParam;
+
+                        _parentMethod = parametersNav[1] as Models.Method;
+                        if (parametersNav[2] != null)
+                            Types = new EF.Context<Models.Types>().FindByID((int)parametersNav[2]);
+                    }
+                    else
+                        _parentMethod = parametersNav[0] as Models.Method;
                 }
             }
 
             if (Types == null)
                 Types = new Models.Types();
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack(_parentMethod);
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -66,7 +81,18 @@ namespace MethodStore
 
         private void TryBack(params object[] param)
         {
-            Navigating.Navigate(typeof(PageMethod), param);
+            if (_backPage == null)
+                Navigating.Navigate(typeof(PageMethod), param);
+            else
+            {
+                object[] paramNavigate = new object[param.Count() + 1];
+                for (int i = 0; i < param.Count(); i++)
+                    paramNavigate[i] = param[i];
+
+                paramNavigate[param.Count()] = new EF.Context<Models.Group>().GetList();
+
+                Navigating.Navigate(_backPage, paramNavigate);
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -76,11 +102,6 @@ namespace MethodStore
                 ApplicationView.GetForCurrentView().Title = "Создание типа";
             else
                 ApplicationView.GetForCurrentView().Title = "Тип";
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            TryBack(_parentMethod);
         }
     }
 }

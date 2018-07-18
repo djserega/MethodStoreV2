@@ -28,7 +28,7 @@ namespace MethodStore
 
         public PageList()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -39,16 +39,25 @@ namespace MethodStore
             {
                 _parentMethod = parametersNav[0] as Models.Method;
 
-                if (parametersNav[1] is List<Models.Group> listGroup)
-                {
-                    ListView.ItemsSource = listGroup;
-                    _typeList = typeof(Models.Group);
-                }
-                else if (parametersNav[1] is List<Models.Types> listType)
-                {
-                    ListView.ItemsSource = listType;
-                    _typeList = typeof(Models.Types);
-                }
+                if (parametersNav[1] is Models.Group
+                    || parametersNav[1] is Models.Types)
+                    SetItemSourceInParameter(parametersNav, 2);
+                else
+                    SetItemSourceInParameter(parametersNav, 1);
+            }
+        }
+
+        private void SetItemSourceInParameter(ParametersNavigating parameters, int i)
+        {
+            if (parameters[i] is List<Models.Group> listGroup)
+            {
+                ListViewModels.ItemsSource = listGroup;
+                _typeList = typeof(Models.Group);
+            }
+            else if (parameters[i] is List<Models.Types> listType)
+            {
+                ListViewModels.ItemsSource = listType;
+                _typeList = typeof(Models.Types);
             }
         }
 
@@ -59,12 +68,12 @@ namespace MethodStore
 
         private void ButtonSelect_Click(object sender, RoutedEventArgs e)
         {
-            TryBack(_parentMethod, ListView.SelectedItem);
+            TryBack(_parentMethod, ListViewModels.SelectedItem);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ListView.Focus(FocusState.Programmatic);
+            ListViewModels.Focus(FocusState.Programmatic);
 
             string newTitle = string.Empty;
             if (_typeList == typeof(Models.Group))
@@ -79,6 +88,28 @@ namespace MethodStore
             Navigating.Navigate(typeof(PageMethod), param);
         }
 
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewModels.SelectedItem != null)
+            {
+                if (ListViewModels.SelectedItem is Models.Group selectedGroup)
+                    NavigateToObjectPage(typeof(PageGroup), selectedGroup.ID);
+                else if (ListViewModels.SelectedItem is Models.Types selectedTypes)
+                    NavigateToObjectPage(typeof(PageType), selectedTypes.ID);
+            }
+        }
 
+        private void ButtonNew_Click(object sender, RoutedEventArgs e)
+        {
+            if (_typeList == typeof(Models.Group))
+                NavigateToObjectPage(typeof(PageGroup));
+            else if (_typeList == typeof(Models.Types))
+                NavigateToObjectPage(typeof(PageType));
+        }
+
+        private void NavigateToObjectPage(Type type, int? id = null)
+        {
+            Navigating.Navigate(type, typeof(PageList), _parentMethod, id);
+        }
     }
 }
