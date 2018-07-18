@@ -89,7 +89,7 @@ namespace MethodStore
                 for (int i = 0; i < param.Count(); i++)
                     paramNavigate[i] = param[i];
 
-                paramNavigate[param.Count()] = new EF.Context<Models.Group>().GetList();
+                paramNavigate[param.Count()] = new EF.Context<Models.Types>().GetList();
 
                 Navigating.Navigate(_backPage, paramNavigate);
             }
