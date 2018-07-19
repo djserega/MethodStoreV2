@@ -83,14 +83,7 @@ namespace MethodStore
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            object idSelectedMethod = null;
-            if (DataGridMethods.SelectedItem is Models.Method method)
-                idSelectedMethod = method.ID;
-
-            if (idSelectedMethod == null)
-                return;
-
-            NavigatingPage(typeof(PageMethod), idSelectedMethod);
+            OpenMethodFromCurrentRowDataGrid();
         }
 
         private async void ButtonDelete_Click(object sender, RoutedEventArgs e)
@@ -184,5 +177,23 @@ namespace MethodStore
                     ParametersSearch.Text += args.Character.ToString();
                 }
         }
+
+        private void DataGridMethods_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            OpenMethodFromCurrentRowDataGrid();
+        }
+
+        private void OpenMethodFromCurrentRowDataGrid()
+        {
+            object idSelectedMethod = null;
+            if (DataGridMethods.SelectedItem is Models.Method method)
+                idSelectedMethod = method.ID;
+
+            if (idSelectedMethod == null)
+                return;
+
+            NavigatingPage(typeof(PageMethod), idSelectedMethod);
+        }
+
     }
 }
