@@ -56,7 +56,7 @@
         </Grid>
 
         <uwp:DataGrid x:Name="DataGridMethods" Grid.Column="1" Grid.Row="2" ItemsSource="{x:Bind ListMethods}" AutoGenerateColumns="False" IsReadOnly="True"
-                      CanUserResizeColumns="False" CanUserSortColumns="True">
+                      CanUserResizeColumns="False" CanUserSortColumns="True" CharacterReceived="DataGridMethods_CharacterReceived">
             <uwp:DataGrid.Columns>
                 <uwp:DataGridTextColumn Header="Группа" Binding="{Binding Group}" MinWidth="250" MaxWidth="250"/>
                 <uwp:DataGridTextColumn Header="Тип" Binding="{Binding Type}" MinWidth="250" MaxWidth="250"/>

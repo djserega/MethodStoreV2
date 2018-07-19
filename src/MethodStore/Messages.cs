@@ -21,7 +21,13 @@ namespace MethodStore
                 CloseButtonText = "ОК"
             };
 
-            ContentDialogResult result = await noWifiDialog.ShowAsync();
+            try
+            {
+                ContentDialogResult result = await noWifiDialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         internal static async Task<ContentDialogResult> Question(string content, string title = "")

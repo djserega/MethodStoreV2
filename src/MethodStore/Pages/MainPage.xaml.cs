@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -153,6 +154,40 @@ namespace MethodStore
         private void _parameterSearchEvents_ChangedItemSearch()
         {
             FillListMethods();
+        }
+
+        private void DataGridMethods_CharacterReceived(UIElement sender, CharacterReceivedRoutedEventArgs args)
+        {
+            if (args.KeyStatus.ScanCode > 1)
+            {
+                string pathColumn = ((DataGrid)sender).CurrentColumn?.ClipboardContentBinding.Path.Path;
+
+                switch (pathColumn)
+                {
+                    case "Group":
+                        ParametersSearch.SearchInGroup = true;
+                        break;
+                    case "Type":
+                        ParametersSearch.SearchInType = true;
+                        break;
+                    case "ObjectName":
+                        ParametersSearch.SearchInObjectName = true;
+                        break;
+                    case "MethodName":
+                        ParametersSearch.SearchInMethodName = true;
+                        break;
+                }
+
+                ParametersSearch.Text += args.Character.ToString();
+            }     
+            else
+            {
+                int countChar = ParametersSearch.Text.Count();
+                if (countChar > 0)
+                {
+                    ParametersSearch.Text = ParametersSearch.Text.Remove(--countChar);
+                }
+            }
         }
     }
 }
