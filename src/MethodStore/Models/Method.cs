@@ -11,16 +11,16 @@ namespace MethodStore.Models
     public class Method : NotifyPropertyChangedClass
     {
         private int _iD;
-        private string _group;
-        private string _type;
-        private string _objectName;
-        private string _methodName;
-        private string _methodInvokationString;
-        private string _description;
-        private bool _templateAddToText;
-        private string _templateName;
-        private string _templateTextCorrect;
-        private string _templateAddToContextMenu;
+        private string _group = "";
+        private string _type = "";
+        private string _objectName = "";
+        private string _methodName = "";
+        private string _methodInvokationString = "";
+        private string _description = "";
+        private bool _templateAddToText = false;
+        private string _templateName = "";
+        private string _templateTextCorrect = "";
+        private string _templateAddToContextMenu = "";
 
         public int ID { get => _iD; set { _iD = value; NotifyPropertyChanged(); } }
         public string Group { get => _group; set { _group = value; NotifyPropertyChanged(); } }
