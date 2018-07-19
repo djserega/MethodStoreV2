@@ -77,5 +77,21 @@ namespace MethodStore
             }
         }
 
+        public static string RemoveChars(this string text, int count = 1)
+        {
+            if (count < 0)
+                count = 0;
+
+            if (count == 0)
+                return text;
+
+            int countChar = text.Count();
+            if (countChar == 0)
+                return text;
+
+            countChar -= count;
+
+            return text.Remove(countChar);
+        }
     }
 }

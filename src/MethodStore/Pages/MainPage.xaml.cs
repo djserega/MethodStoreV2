@@ -159,35 +159,30 @@ namespace MethodStore
         private void DataGridMethods_CharacterReceived(UIElement sender, CharacterReceivedRoutedEventArgs args)
         {
             if (args.KeyStatus.ScanCode > 1)
-            {
-                string pathColumn = ((DataGrid)sender).CurrentColumn?.ClipboardContentBinding.Path.Path;
-
-                switch (pathColumn)
+                if (args.KeyStatus.ScanCode == 14)
+                    ParametersSearch.Text = ParametersSearch.Text.RemoveChars(1);
+                else
                 {
-                    case "Group":
-                        ParametersSearch.SearchInGroup = true;
-                        break;
-                    case "Type":
-                        ParametersSearch.SearchInType = true;
-                        break;
-                    case "ObjectName":
-                        ParametersSearch.SearchInObjectName = true;
-                        break;
-                    case "MethodName":
-                        ParametersSearch.SearchInMethodName = true;
-                        break;
-                }
+                    string pathColumn = ((DataGrid)sender).CurrentColumn?.ClipboardContentBinding.Path.Path;
 
-                ParametersSearch.Text += args.Character.ToString();
-            }     
-            else
-            {
-                int countChar = ParametersSearch.Text.Count();
-                if (countChar > 0)
-                {
-                    ParametersSearch.Text = ParametersSearch.Text.Remove(--countChar);
+                    switch (pathColumn)
+                    {
+                        case "Group":
+                            ParametersSearch.SearchInGroup = true;
+                            break;
+                        case "Type":
+                            ParametersSearch.SearchInType = true;
+                            break;
+                        case "ObjectName":
+                            ParametersSearch.SearchInObjectName = true;
+                            break;
+                        case "MethodName":
+                            ParametersSearch.SearchInMethodName = true;
+                            break;
+                    }
+
+                    ParametersSearch.Text += args.Character.ToString();
                 }
-            }
         }
     }
 }
