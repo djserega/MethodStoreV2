@@ -2,11 +2,12 @@
     x:Class="MethodStore.PageList"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MethodStore.Pages"
+    xmlns:local="using:MethodStore.Pages.PageList"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded" x:Name="PageListPage"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    KeyDown="PageListPage_KeyDown">
 
     <Grid>
         <Grid.ColumnDefinitions>
