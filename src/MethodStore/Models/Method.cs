@@ -41,6 +41,45 @@ namespace MethodStore.Models
             Type = method.Type;
             ObjectName = method.ObjectName;
             MethodName = method.MethodName;
+
+            SetMethodInvokationString();
+        }
+
+        public override void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            base.NotifyPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case "Type":
+                case "ObjectName":
+                case "MethodName":
+                    SetMethodInvokationString();
+                    break;
+            }
+        }
+
+        internal void SetMethodInvokationString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (NeedAddTypeInInvokationString())
+            {
+                stringBuilder.Append(_type);
+                stringBuilder.Append(".");
+            }
+            stringBuilder.Append(_objectName);
+            stringBuilder.Append(".");
+            stringBuilder.Append(_methodName);
+            stringBuilder.Append("(");
+            stringBuilder.Append(")");
+            stringBuilder.Append(";");
+
+            MethodInvokationString = stringBuilder.ToString();
+        }
+
+        private bool NeedAddTypeInInvokationString()
+        {
+            return new EF.Context<Types>().FindByName(_type)?.AddToInvocationString ?? false;
         }
 
     }

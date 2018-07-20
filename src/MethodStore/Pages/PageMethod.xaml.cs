@@ -111,6 +111,11 @@ namespace MethodStore
 
         #region TextBoxType
 
+        private void TextBoxType_TextChanged()
+        {
+            Method.SetMethodInvokationString();
+        }
+
         private void TextBoxType_ClickNew()
         {
             SaveObject();
@@ -155,5 +160,6 @@ namespace MethodStore
                 TryBack();
             }
         }
+
     }
 }
