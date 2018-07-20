@@ -65,6 +65,8 @@ namespace MethodStore
                 DataGridMethods.SelectedItem = ListMethods.SingleOrDefault(f => f.ID == _selectedItemMethod.ID);
             }
             ApplicationView.GetForCurrentView().Title = string.Empty;
+
+            DataGridMethods.Focus(FocusState.Programmatic);
         }
 
         private void PageMainPage_Unloaded(object sender, RoutedEventArgs e)
