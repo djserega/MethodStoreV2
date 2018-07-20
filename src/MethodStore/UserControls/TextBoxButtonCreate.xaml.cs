@@ -19,12 +19,18 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MethodStore
 {
+    internal delegate void TextChanged();
     internal delegate void ClickNew();
     internal delegate void ClickSelect();
     internal delegate void ClickOpen();
 
     public sealed partial class TextBoxButtonCreate : UserControl, INotifyPropertyChanged
     {
+        public TextBoxButtonCreate()
+        {
+            InitializeComponent();
+        }
+
         public string Header { get; set; }
         public string Text
         {
@@ -37,9 +43,10 @@ namespace MethodStore
         }
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBox), null);
 
-        public TextBoxButtonCreate()
+        internal event TextChanged TextChanged;
+        private void TextBoxtText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            InitializeComponent();
+            TextChanged?.Invoke();
         }
 
         internal event ClickNew ClickNew;
@@ -66,5 +73,6 @@ namespace MethodStore
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

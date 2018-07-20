@@ -16,7 +16,7 @@
             <ColumnDefinition Width="58"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text, Mode=TwoWay}"/>
+        <TextBox x:Name="TextBoxtText" Grid.Column="0" Header="{x:Bind Header}" Text="{x:Bind Text, Mode=TwoWay}" TextChanged="TextBoxtText_TextChanged"/>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="45*"/>
