@@ -10,6 +10,7 @@ namespace MethodStore.Models
 {
     public class Method : NotifyPropertyChangedClass
     {
+        #region Fields
         private int _iD;
         private string _group = "";
         private string _type = "";
@@ -21,7 +22,9 @@ namespace MethodStore.Models
         private string _templateName = "";
         private string _templateTextCorrect = "";
         private string _templateAddToContextMenu = "";
+        #endregion
 
+        #region Properties
         public int ID { get => _iD; set { _iD = value; NotifyPropertyChanged(); } }
         public string Group { get => _group; set { _group = value; NotifyPropertyChanged(); } }
         public string Type { get => _type; set { _type = value; NotifyPropertyChanged(); } }
@@ -35,6 +38,9 @@ namespace MethodStore.Models
         public string TemplateName { get => _templateName; set { _templateName = value; NotifyPropertyChanged(); } }
         public string TemplateTextCorrect { get => _templateTextCorrect; set { _templateTextCorrect = value; NotifyPropertyChanged(); } }
         public string TemplateAddToContextMenu { get => _templateAddToContextMenu; set { _templateAddToContextMenu = value; NotifyPropertyChanged(); } }
+        #endregion
+
+        #region Internal methods
 
         internal void Fill(Method method)
         {
@@ -43,20 +49,6 @@ namespace MethodStore.Models
             MethodName = method.MethodName;
 
             SetMethodInvokationString();
-        }
-
-        public override void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.NotifyPropertyChanged(propertyName);
-
-            switch (propertyName)
-            {
-                case "Type":
-                case "ObjectName":
-                case "MethodName":
-                    SetMethodInvokationString();
-                    break;
-            }
         }
 
         internal void SetMethodInvokationString()
@@ -75,6 +67,22 @@ namespace MethodStore.Models
             stringBuilder.Append(";");
 
             MethodInvokationString = stringBuilder.ToString();
+        }
+
+        #endregion
+
+        public override void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            base.NotifyPropertyChanged(propertyName);
+
+            switch (propertyName)
+            {
+                case "Type":
+                case "ObjectName":
+                case "MethodName":
+                    SetMethodInvokationString();
+                    break;
+            }
         }
 
         private bool NeedAddTypeInInvokationString()

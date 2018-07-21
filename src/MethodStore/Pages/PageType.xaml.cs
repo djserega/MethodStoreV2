@@ -24,13 +24,41 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageType : Page
     {
-        public Models.Types Types { get; set; }
+        #region Fields
         private Models.Method _parentMethod;
         private Type _backPage;
+        #endregion
+
+        #region Properties
+        public Models.Types Types { get; set; }
+        #endregion
+
+        #region Constructors
 
         public PageType()
         {
             InitializeComponent();
+        }
+
+        #endregion
+
+        #region Page events
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxName.Focus(FocusState.Programmatic);
+            if (Types.ID == 0)
+                ApplicationView.GetForCurrentView().Title = "Создание типа";
+            else
+                ApplicationView.GetForCurrentView().Title = "Тип";
+        }
+
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Escape)
+            {
+                TryBack(_parentMethod);
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -68,6 +96,10 @@ namespace MethodStore
                 Types = new Models.Types();
         }
 
+        #endregion
+
+        #region Button
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             TryBack(_parentMethod);
@@ -79,6 +111,8 @@ namespace MethodStore
 
             TryBack(_parentMethod, Types);
         }
+
+        #endregion
 
         private void TryBack(params object[] param)
         {
@@ -96,21 +130,5 @@ namespace MethodStore
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            TextBoxName.Focus(FocusState.Programmatic);
-            if (Types.ID == 0)
-                ApplicationView.GetForCurrentView().Title = "Создание типа";
-            else
-                ApplicationView.GetForCurrentView().Title = "Тип";
-        }
-
-        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Escape)
-            {
-                TryBack(_parentMethod);
-            }
-        }
     }
 }

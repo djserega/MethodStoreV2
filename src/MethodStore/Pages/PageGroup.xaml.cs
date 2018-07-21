@@ -24,14 +24,25 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageGroup : Page
     {
-        public Models.Group Group { get; set; }
+        #region Fields
         private Models.Method _parentMethod;
         private Type _backPage;
+        #endregion
+
+        #region Constructors
 
         public PageGroup()
         {
             InitializeComponent();
         }
+
+        #endregion
+
+        #region Properties
+        public Models.Group Group { get; set; }
+        #endregion
+
+        #region Page events
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -68,6 +79,27 @@ namespace MethodStore
                 Group = new Models.Group();
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TextBoxName.Focus(FocusState.Programmatic);
+            if (Group.ID == 0)
+                ApplicationView.GetForCurrentView().Title = "Создание группы";
+            else
+                ApplicationView.GetForCurrentView().Title = "Группа";
+        }
+
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Escape)
+            {
+                TryBack(_parentMethod);
+            }
+        }
+
+        #endregion
+
+        #region Button
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             TryBack(_parentMethod);
@@ -79,6 +111,8 @@ namespace MethodStore
 
             TryBack(_parentMethod, Group);
         }
+
+        #endregion
 
         private void TryBack(params object[] param)
         {
@@ -96,21 +130,5 @@ namespace MethodStore
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            TextBoxName.Focus(FocusState.Programmatic);
-            if (Group.ID == 0)
-                ApplicationView.GetForCurrentView().Title = "Создание группы";
-            else
-                ApplicationView.GetForCurrentView().Title = "Группа";
-        }
-
-        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Escape)
-            {
-                TryBack(_parentMethod);
-            }
-        }
     }
 }

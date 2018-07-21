@@ -24,13 +24,21 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageList : Page
     {
+        #region Fields
         private Models.Method _parentMethod;
         private Type _typeList;
+        #endregion
+
+        #region Constructors
 
         public PageList()
         {
             InitializeComponent();
         }
+
+        #endregion
+        
+        #region Page events
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -48,30 +56,6 @@ namespace MethodStore
             }
         }
 
-        private void SetItemSourceInParameter(ParametersNavigating parameters, int i)
-        {
-            if (parameters[i] is List<Models.Group> listGroup)
-            {
-                ListViewModels.ItemsSource = listGroup;
-                _typeList = typeof(Models.Group);
-            }
-            else if (parameters[i] is List<Models.Types> listType)
-            {
-                ListViewModels.ItemsSource = listType;
-                _typeList = typeof(Models.Types);
-            }
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            TryBack(_parentMethod);
-        }
-
-        private void ButtonSelect_Click(object sender, RoutedEventArgs e)
-        {
-            TryBack(_parentMethod, ListViewModels.SelectedItem);
-        }
-
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ListViewModels.Focus(FocusState.Programmatic);
@@ -84,9 +68,26 @@ namespace MethodStore
             ApplicationView.GetForCurrentView().Title = newTitle;
         }
 
-        private void TryBack(params object[] param)
+        private void PageListPage_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            Navigating.Navigate(typeof(PageMethod), param);
+            if (e.Key == VirtualKey.Escape)
+            {
+                TryBack(_parentMethod);
+            }
+        }
+
+        #endregion
+
+        #region Button
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack(_parentMethod);
+        }
+
+        private void ButtonSelect_Click(object sender, RoutedEventArgs e)
+        {
+            TryBack(_parentMethod, ListViewModels.SelectedItem);
         }
 
         private void ButtonOpen_Click(object sender, RoutedEventArgs e)
@@ -108,17 +109,31 @@ namespace MethodStore
                 NavigateToObjectPage(typeof(PageType));
         }
 
+        #endregion
+
+        private void TryBack(params object[] param)
+        {
+            Navigating.Navigate(typeof(PageMethod), param);
+        }
+
         private void NavigateToObjectPage(Type type, int? id = null)
         {
             Navigating.Navigate(type, typeof(PageList), _parentMethod, id);
         }
 
-        private void PageListPage_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void SetItemSourceInParameter(ParametersNavigating parameters, int i)
         {
-            if (e.Key == VirtualKey.Escape)
+            if (parameters[i] is List<Models.Group> listGroup)
             {
-                TryBack(_parentMethod);
+                ListViewModels.ItemsSource = listGroup;
+                _typeList = typeof(Models.Group);
+            }
+            else if (parameters[i] is List<Models.Types> listType)
+            {
+                ListViewModels.ItemsSource = listType;
+                _typeList = typeof(Models.Types);
             }
         }
+
     }
 }

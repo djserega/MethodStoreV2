@@ -8,15 +8,19 @@ namespace MethodStore.EF
     {
         private readonly string _fileNameDatabase = "Methods.db";
 
+        #region Constructors
+        public MethodStoreContext()
+        {
+            Database.EnsureCreated();
+        } 
+        #endregion
+
+        #region Properties db table
         public DbSet<Models.Method> Methods { get; set; }
         public DbSet<Models.Group> Groups { get; set; }
         public DbSet<Models.Types> Types { get; set; }
         public DbSet<Models.RemovingText> RemovingTexts { get; set; }
-
-        public MethodStoreContext()
-        {
-            Database.EnsureCreated();
-        }
+        #endregion
 
         public async Task<T> FindByNameAsync<T>(string name) where T : class
         {
@@ -38,10 +42,16 @@ namespace MethodStore.EF
         {
             if (new Context<Models.RemovingText>().IsEmpty())
             {
-                RemovingTexts.Add(new Models.RemovingText() { Text = "Процедура", Type = TypesRemovingText.Start });
-                RemovingTexts.Add(new Models.RemovingText() { Text = "Функция", Type = TypesRemovingText.Start });
+                InitializindDBRemovingTexts();
+
                 SaveChanges();
             }
+        }
+
+        private void InitializindDBRemovingTexts()
+        {
+            RemovingTexts.Add(new Models.RemovingText() { Text = "Процедура", Type = TypesRemovingText.Start });
+            RemovingTexts.Add(new Models.RemovingText() { Text = "Функция", Type = TypesRemovingText.Start });
         }
     }
 }

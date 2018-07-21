@@ -24,17 +24,20 @@ namespace MethodStore
     /// </summary>
     public sealed partial class PageMethod : Page
     {
-        public Models.Method Method { get; set; }
+        #region Constructors
 
         public PageMethod()
         {
             InitializeComponent();
         }
 
-        private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            ApplicationView.GetForCurrentView().Title = "Метод" + Method?.MethodInvokationString;
-        }
+        #endregion
+
+        #region Properties
+        public Models.Method Method { get; set; }
+        #endregion
+
+        #region Page events
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -64,14 +67,26 @@ namespace MethodStore
                 Method = new Models.Method();
         }
 
+        private void PageMethodPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ApplicationView.GetForCurrentView().Title = "Метод" + Method?.MethodInvokationString;
+        }
+
+        private void PageMethodPage_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Escape)
+            {
+                TryBack();
+            }
+        }
+
+        #endregion
+
+        #region Button
+
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             SaveObject();
-        }
-
-        private void SaveObject()
-        {
-            new EF.Context<Models.Method>().Update(Method);
         }
 
         private void ButtonSaveAndClose_Click(object sender, RoutedEventArgs e)
@@ -81,10 +96,22 @@ namespace MethodStore
             TryBack();
         }
 
-        private void TryBack()
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            Navigating.Navigate(typeof(MainPage), Method);
+            TryBack();
         }
+
+        private async void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            TextParser textParser = new TextParser();
+            await textParser.GetTextInClipboard();
+            if (textParser.MethodInClipboard != null)
+            {
+                Method.Fill(textParser.MethodInClipboard);
+            }
+        }
+
+        #endregion
 
         #region TextBoxGroup
 
@@ -137,28 +164,14 @@ namespace MethodStore
 
         #endregion
 
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        private void TryBack()
         {
-            TryBack();
+            Navigating.Navigate(typeof(MainPage), Method);
         }
 
-        private async void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
+        private void SaveObject()
         {
-            TextParser textParser = new TextParser();
-            await textParser.GetTextInClipboard();
-            if (textParser.MethodInClipboard != null)
-            {
-                Method.Fill(textParser.MethodInClipboard);
-            }
-        }
-
-        private void PageMethodPage_KeyDown(object sender, KeyRoutedEventArgs e)
-        {
-            if (e.Key == VirtualKey.Escape)
-            {
-                TryBack();
-            }
+            new EF.Context<Models.Method>().Update(Method);
         }
 
     }

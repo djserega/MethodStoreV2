@@ -9,6 +9,8 @@ namespace MethodStore.EF
 {
     internal class Context<T> where T : class
     {
+        #region Internal methods
+
         internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
             List<Models.Method> methods = null;
@@ -46,6 +48,26 @@ namespace MethodStore.EF
             return methods;
         }
 
+        internal List<T> GetList()
+        {
+            List<T> listT = new List<T>();
+
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                Type typeofT = typeof(T);
+
+                if (typeofT == typeof(Models.Group))
+                    return context.Groups.ToList() as List<T>;
+                else if (typeofT == typeof(Models.Types))
+                    return context.Types.ToList() as List<T>;
+                else if (typeofT == typeof(Models.RemovingText))
+                    return context.RemovingTexts.ToList() as List<T>;
+                else
+                    throw new NotImplementedException();
+
+            }
+        }
+
         internal void Update(T obj)
         {
             using (MethodStoreContext context = new MethodStoreContext())
@@ -80,6 +102,18 @@ namespace MethodStore.EF
             }
         }
 
+        internal bool IsEmpty()
+        {
+            using (MethodStoreContext context = new MethodStoreContext())
+            {
+                return !context.RemovingTexts.Any();
+            }
+        }
+
+        #endregion
+        
+        #region Search methods
+
         internal T FindByID(int id)
         {
             using (MethodStoreContext context = new MethodStoreContext())
@@ -96,32 +130,6 @@ namespace MethodStore.EF
             }
         }
 
-        internal List<T> GetList()
-        {
-            List<T> listT = new List<T>();
-
-            using (MethodStoreContext context = new MethodStoreContext())
-            {
-                Type typeofT = typeof(T);
-
-                if (typeofT == typeof(Models.Group))
-                    return context.Groups.ToList() as List<T>;
-                else if (typeofT == typeof(Models.Types))
-                    return context.Types.ToList() as List<T>;
-                else if (typeofT == typeof(Models.RemovingText))
-                    return context.RemovingTexts.ToList() as List<T>;
-                else
-                    throw new NotImplementedException();
-
-            }
-        }
-
-        internal bool IsEmpty()
-        {
-            using (MethodStoreContext context = new MethodStoreContext())
-            {
-                return !context.RemovingTexts.Any();
-            }
-        }
+        #endregion
     }
 }

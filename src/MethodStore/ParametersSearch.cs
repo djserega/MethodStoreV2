@@ -11,6 +11,7 @@ namespace MethodStore
 {
     public class ParametersSearch : Models.NotifyPropertyChangedClass, IDisposable
     {
+        #region Fields
         private ParameterSearchEvents _parameterSearchEvents;
         private ApplicationDataContainer localSettings;
 
@@ -19,18 +20,25 @@ namespace MethodStore
         private bool _searchInType;
         private bool _searchInObjectName;
         private bool _searchInMethodName;
+        #endregion
+
+        #region Constructors
 
         public ParametersSearch(ParameterSearchEvents parameterSearchEvents)
         {
             _parameterSearchEvents = parameterSearchEvents;
             LoadLocalSettings();
-        }
+        } 
+        
+        #endregion
 
+        #region Properties
         public string Text { get => _text; set { _text = value; NotifyPropertyChanged(); } }
         public bool SearchInGroup { get => _searchInGroup; set { _searchInGroup = value; NotifyPropertyChanged(); } }
         public bool SearchInType { get => _searchInType; set { _searchInType = value; NotifyPropertyChanged(); } }
         public bool SearchInObjectName { get => _searchInObjectName; set { _searchInObjectName = value; NotifyPropertyChanged(); } }
-        public bool SearchInMethodName { get => _searchInMethodName; set { _searchInMethodName = value; NotifyPropertyChanged(); } }
+        public bool SearchInMethodName { get => _searchInMethodName; set { _searchInMethodName = value; NotifyPropertyChanged(); } } 
+        #endregion
 
         public override void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {

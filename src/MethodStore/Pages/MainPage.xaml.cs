@@ -138,18 +138,20 @@ namespace MethodStore
 
         #endregion
 
-        private void FillListMethods()
-        {
-            ListMethods.Clear();
-            List<Models.Method> methods = new EF.Context<Models.Method>().GetListMethods(ParametersSearch);
-            if (methods != null)
-                foreach (Models.Method item in methods)
-                    ListMethods.Add(item);
-        }
+        #region DataGrid Methods
 
-        private void _parameterSearchEvents_ChangedItemSearch()
+        private void MenuFlyoutItemCopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
-            FillListMethods();
+            if (DataGridMethods.SelectedItem is Models.Method method)
+            {
+                if (!string.IsNullOrWhiteSpace(method.MethodInvokationString))
+                {
+                    DataPackage dataPackage = new DataPackage();
+                    dataPackage.SetText(method.MethodInvokationString);
+
+                    Clipboard.SetContent(dataPackage);
+                }
+            }
         }
 
         private void DataGridMethods_CharacterReceived(UIElement sender, CharacterReceivedRoutedEventArgs args)
@@ -197,19 +199,22 @@ namespace MethodStore
 
             NavigatingPage(typeof(PageMethod), idSelectedMethod);
         }
+        
+        #endregion
 
-        private void MenuFlyoutItemCopyToClipboard_Click(object sender, RoutedEventArgs e)
+        private void FillListMethods()
         {
-            if (DataGridMethods.SelectedItem is Models.Method method)
-            {
-                if (!string.IsNullOrWhiteSpace(method.MethodInvokationString))
-                {
-                    DataPackage dataPackage = new DataPackage();
-                    dataPackage.SetText(method.MethodInvokationString);
-
-                    Clipboard.SetContent(dataPackage);
-                }
-            }
+            ListMethods.Clear();
+            List<Models.Method> methods = new EF.Context<Models.Method>().GetListMethods(ParametersSearch);
+            if (methods != null)
+                foreach (Models.Method item in methods)
+                    ListMethods.Add(item);
         }
+
+        private void _parameterSearchEvents_ChangedItemSearch()
+        {
+            FillListMethods();
+        }
+
     }
 }
