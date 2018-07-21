@@ -11,42 +11,37 @@ namespace MethodStore
     {
         internal Models.Method MethodInClipboard { get; private set; }
 
-        internal async Task GetTextInClipboard()
+        internal void GetTextInClipboard()
         {
-            DataPackageView dataContent = Clipboard.GetContent();
+            string originalText = new Clipboard().GetText();
 
-            if (dataContent.AvailableFormats.Contains("Text"))
+            if (string.IsNullOrWhiteSpace(originalText))
+                return;
+
+            MethodInClipboard = new Models.Method();
+
+            string text = originalText;
+
+            text = RemoveStartText(text);
+
+            int countDot = text.Count(f => f == '.');
+            int countOpeningBracket = text.Count(f => f == '(');
+            int countClosingBracket = text.Count(f => f == ')');
+
+            if (countDot >= 1 && countOpeningBracket == 1 && countClosingBracket == 1)
             {
-                string originalText = await dataContent.GetTextAsync("Text");
+                string textObjectName = text.GetTextBefore();
 
-                if (string.IsNullOrWhiteSpace(originalText))
-                    return;
+                if (textObjectName.Count(f => f == '=') > 0)
+                    MethodInClipboard.ObjectName = textObjectName.GetTextAfter('=');
+                else
+                    MethodInClipboard.ObjectName = textObjectName;
 
-                MethodInClipboard = new Models.Method();
+                text = text.RemoveStartText(MethodInClipboard.ObjectName, '.');
 
-                string text = originalText;
-
-                text = RemoveStartText(text);
-
-                int countDot = text.Count(f => f == '.');
-                int countOpeningBracket = text.Count(f => f == '(');
-                int countClosingBracket = text.Count(f => f == ')');
-
-                if (countDot >= 1 && countOpeningBracket == 1 && countClosingBracket == 1)
-                {
-                    string textObjectName = text.GetTextBefore();
-
-                    if (textObjectName.Count(f => f == '=') > 0)
-                        MethodInClipboard.ObjectName = textObjectName.GetTextAfter('=');
-                    else
-                        MethodInClipboard.ObjectName = textObjectName;
-
-                    text = text.RemoveStartText(MethodInClipboard.ObjectName, '.');
-
-                    MethodInClipboard.MethodName = text.GetTextBefore('(');
-                }
-
+                MethodInClipboard.MethodName = text.GetTextBefore('(');
             }
+
         }
 
         private string RemoveStartText(string text)

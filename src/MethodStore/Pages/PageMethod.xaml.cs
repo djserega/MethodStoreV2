@@ -101,10 +101,10 @@ namespace MethodStore
             TryBack();
         }
 
-        private async void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
+        private void ButtonGetInfoInClipboard_Click(object sender, RoutedEventArgs e)
         {
             TextParser textParser = new TextParser();
-            await textParser.GetTextInClipboard();
+            textParser.GetTextInClipboard();
             if (textParser.MethodInClipboard != null)
             {
                 Method.Fill(textParser.MethodInClipboard);
@@ -174,5 +174,9 @@ namespace MethodStore
             new EF.Context<Models.Method>().Update(Method);
         }
 
+        private void MenuFlyoutItemCopyToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            new Clipboard().SetText(Method.MethodInvokationString);
+        }
     }
 }

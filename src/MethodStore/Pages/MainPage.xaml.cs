@@ -143,15 +143,7 @@ namespace MethodStore
         private void MenuFlyoutItemCopyToClipboard_Click(object sender, RoutedEventArgs e)
         {
             if (DataGridMethods.SelectedItem is Models.Method method)
-            {
-                if (!string.IsNullOrWhiteSpace(method.MethodInvokationString))
-                {
-                    DataPackage dataPackage = new DataPackage();
-                    dataPackage.SetText(method.MethodInvokationString);
-
-                    Clipboard.SetContent(dataPackage);
-                }
-            }
+                new Clipboard().SetText(method.MethodInvokationString);
         }
 
         private void DataGridMethods_CharacterReceived(UIElement sender, CharacterReceivedRoutedEventArgs args)
@@ -199,7 +191,7 @@ namespace MethodStore
 
             NavigatingPage(typeof(PageMethod), idSelectedMethod);
         }
-        
+
         #endregion
 
         private void FillListMethods()
