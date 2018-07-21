@@ -66,6 +66,14 @@
                 <uwp:DataGridTextColumn Header="Метод" Binding="{Binding MethodName}" MinWidth="400" MaxWidth="400"/>
                 <uwp:DataGridTextColumn Header="Описание" Binding="{Binding Description}" MinWidth="150" MaxWidth="200"/>
             </uwp:DataGrid.Columns>
+            <uwp:DataGrid.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem x:Name="MenuFlyoutItemCopyToClipboard" Text="Скопировать в буфер обмена" Click="MenuFlyoutItemCopyToClipboard_Click"/>
+                    <MenuFlyoutSeparator/>
+                    <MenuFlyoutItem Text="Добавить" Click="ButtonAdd_Click"/>
+                    <MenuFlyoutItem Text="Изменить" Click="ButtonEdit_Click"/>
+                </MenuFlyout>
+            </uwp:DataGrid.ContextFlyout>
         </uwp:DataGrid>
     </Grid>
 </Page>

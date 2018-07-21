@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -197,5 +198,18 @@ namespace MethodStore
             NavigatingPage(typeof(PageMethod), idSelectedMethod);
         }
 
+        private void MenuFlyoutItemCopyToClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridMethods.SelectedItem is Models.Method method)
+            {
+                if (!string.IsNullOrWhiteSpace(method.MethodInvokationString))
+                {
+                    DataPackage dataPackage = new DataPackage();
+                    dataPackage.SetText(method.MethodInvokationString);
+
+                    Clipboard.SetContent(dataPackage);
+                }
+            }
+        }
     }
 }
