@@ -13,6 +13,8 @@ namespace MethodStore.EF
 
         internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
+            new Service.TcpService().GetListMethods();
+
             List<Models.Method> methods = null;
 
             using (MethodStoreContext context = new MethodStoreContext())

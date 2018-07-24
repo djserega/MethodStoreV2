@@ -130,6 +130,7 @@
     <Compile Include="ParametersNavigating.cs" />
     <Compile Include="ParametersSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\TcpService.cs" />
     <Compile Include="TextParser.cs" />
     <Compile Include="UserControls\TextBoxButtonCreate.xaml.cs">
       <DependentUpon>TextBoxButtonCreate.xaml</DependentUpon>
