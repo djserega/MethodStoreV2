@@ -144,6 +144,8 @@
     <None Include="MethodStore_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\LockScreenLogo.targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
