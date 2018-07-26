@@ -13,7 +13,7 @@ namespace MethodStore.EF
 
         internal List<Models.Method> GetListMethods(ParametersSearch parametersSearch)
         {
-            new Service.TcpService().GetListMethods();
+            GetListMethodsService();
 
             List<Models.Method> methods = null;
 
@@ -133,5 +133,11 @@ namespace MethodStore.EF
         }
 
         #endregion
+
+        private void GetListMethodsService()
+        {
+            new Service.TcpService().GetListMethods();
+        }
+
     }
 }

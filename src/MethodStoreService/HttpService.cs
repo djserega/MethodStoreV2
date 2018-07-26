@@ -89,7 +89,7 @@ namespace MethodStoreService
             }
             catch (Exception ex)
             {
-                return $"error:" + ex.Message;
+                return $"error:{ex.Message}";
             }
 
             return data.Replace("\0", string.Empty).Trim();
@@ -97,7 +97,7 @@ namespace MethodStoreService
 
         private void SendMessage(TcpClient tcpClient, string message)
         {
-            byte[] byteMessage = Encoding.UTF8.GetBytes(message);
+            byte[] byteMessage = Encoding.UTF8.GetBytes($"{message}###");
 
             tcpClient.GetStream().Write(byteMessage, 0, byteMessage.Length);
         }
